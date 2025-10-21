@@ -1,0 +1,79 @@
+/* 
+ * ARCHIVO: external-styles.css
+ * MÉTODO 3: Estilos Externos (External Stylesheet)
+ * 
+ * Este archivo se carga mediante una petición HTTP GET al servidor.
+ * Cuando el navegador encuentra <link rel="stylesheet" href="external-styles.css">,
+ * realiza una petición al servidor web para descargar este archivo.
+ */
+
+/* Estilos para la sección de estilos externos */
+.external-section {
+    background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%) !important;
+    border: 2px solid #e17055 !important;
+}
+
+.external-section .method-title {
+    color: #d63031 !important;
+    border-bottom-color: #e17055 !important;
+}
+
+/* Demostración visual de estilos externos */
+.external-demo {
+    background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 1.2em;
+    font-weight: bold;
+    box-shadow: 0 5px 15px rgba(9, 132, 227, 0.3);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.02);
+    }
+}
+
+/* 
+ * VENTAJAS DE USAR ARCHIVOS EXTERNOS:
+ * 
+ * 1. CACHÉ DEL NAVEGADOR:
+ *    - El navegador guarda este archivo en caché
+ *    - Visitas posteriores no requieren descargarlo nuevamente
+ *    - Mejora significativamente el rendimiento
+ * 
+ * 2. REUTILIZACIÓN:
+ *    - Múltiples páginas HTML pueden usar el mismo CSS
+ *    - Un cambio aquí afecta a todas las páginas
+ * 
+ * 3. ORGANIZACIÓN:
+ *    - Separa el contenido (HTML) de la presentación (CSS)
+ *    - Facilita el mantenimiento
+ * 
+ * 4. COLABORACIÓN:
+ *    - Diferentes desarrolladores pueden trabajar en HTML y CSS por separado
+ * 
+ * 5. RENDIMIENTO:
+ *    - Los archivos CSS se pueden minificar
+ *    - Se pueden servir comprimidos (gzip)
+ *    - CDNs pueden distribuir los archivos globalmente
+ */
+
+/* Estilos adicionales para demostrar capacidades */
+.external-section .example-box {
+    border-left-color: #e17055;
+}
+
+/* Responsive design */
+@media screen and (max-width: 768px) {
+    .external-demo {
+        font-size: 1em;
+        padding: 15px;
+    }
+}

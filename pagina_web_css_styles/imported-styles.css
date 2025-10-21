@@ -1,0 +1,98 @@
+/* 
+ * ARCHIVO: imported-styles.css
+ * MÉTODO 4: Importación CSS (@import)
+ * 
+ * Este archivo se carga cuando el navegador procesa la regla @import.
+ * A diferencia de <link>, la petición HTTP se hace DESPUÉS de cargar
+ * el archivo CSS principal, lo que puede retrasar el renderizado.
+ */
+
+/* Estilos para la sección de importación */
+.imported-section {
+    background: linear-gradient(135deg, #a29bfe 0%, #6c5ce7 100%) !important;
+    border: 2px solid #6c5ce7 !important;
+}
+
+.imported-section .method-title {
+    color: #5f27cd !important;
+    border-bottom-color: #6c5ce7 !important;
+}
+
+/* Demostración visual de estilos importados */
+.imported-demo {
+    background: linear-gradient(135deg, #fd79a8 0%, #e84393 100%);
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 1.2em;
+    font-weight: bold;
+    box-shadow: 0 5px 15px rgba(232, 67, 147, 0.3);
+    animation: slideIn 1s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* 
+ * CÓMO FUNCIONA @import CON HTTP:
+ * 
+ * PROCESO DE CARGA:
+ * 1. Navegador carga index.html
+ * 2. Encuentra <style> con @import url('imported-styles.css')
+ * 3. Hace petición HTTP GET /imported-styles.css
+ * 4. Espera respuesta del servidor
+ * 5. Descarga y aplica los estilos
+ * 
+ * PROBLEMA DE RENDIMIENTO (Waterfall):
+ * HTML → CSS Principal → @import CSS → Otro @import → ...
+ * 
+ * Cada @import crea una nueva petición HTTP secuencial,
+ * aumentando el tiempo de carga total de la página.
+ * 
+ * COMPARACIÓN CON <link>:
+ * 
+ * CON <link> (PARALELO - RÁPIDO):
+ * HTML → CSS1 + CSS2 + CSS3 (todas al mismo tiempo)
+ * 
+ * CON @import (SECUENCIAL - LENTO):
+ * HTML → CSS1 → CSS2 → CSS3 (una tras otra)
+ */
+
+/* Estilos adicionales */
+.imported-section .example-box {
+    border-left-color: #6c5ce7;
+}
+
+/* 
+ * CASOS DE USO VÁLIDOS PARA @import:
+ * 
+ * 1. Importar fuentes de Google:
+ *    @import url('https://fonts.googleapis.com/css2?family=Roboto');
+ * 
+ * 2. Desarrollo local (no producción):
+ *    @import url('reset.css');
+ *    @import url('layout.css');
+ *    @import url('components.css');
+ * 
+ * 3. Preprocesadores CSS (SASS/LESS):
+ *    @import 'variables';
+ *    @import 'mixins';
+ *    (Estos se compilan en un solo archivo)
+ */
+
+/* Media queries también funcionan con @import */
+@media screen and (max-width: 768px) {
+    .imported-demo {
+        font-size: 1em;
+        padding: 15px;
+    }
+}
