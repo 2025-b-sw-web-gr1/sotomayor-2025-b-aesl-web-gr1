@@ -1,0 +1,146 @@
+<section class="error-section py-5 mt-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 text-center">
+                <div class="error-content">
+                    <!-- Icono de error -->
+                    <div class="error-icon mb-4">
+                        <i class="fas fa-exclamation-triangle fa-5x text-warning"></i>
+                    </div>
+                    
+                    <!-- Código de error -->
+                    <h1 class="error-code display-1 fw-bold text-primary">404</h1>
+                    
+                    <!-- Mensaje de error -->
+                    <h2 class="error-title h3 mb-3">Página no encontrada</h2>
+                    <p class="error-message lead text-muted mb-4">
+                        Lo siento, la página que buscas no existe o ha sido movida.
+                    </p>
+                    
+                    <!-- Sugerencias -->
+                    <div class="error-suggestions mb-4">
+                        <p class="text-muted">Puedes intentar:</p>
+                        <ul class="list-unstyled">
+                            <li class="mb-2">
+                                <i class="fas fa-check text-success me-2"></i>
+                                Verificar que la URL esté escrita correctamente
+                            </li>
+                            <li class="mb-2">
+                                <i class="fas fa-check text-success me-2"></i>
+                                Regresar a la página anterior
+                            </li>
+                            <li class="mb-2">
+                                <i class="fas fa-check text-success me-2"></i>
+                                Ir a la página principal
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Botones de acción -->
+                    <div class="error-actions">
+                        <a href="/" class="btn btn-primary btn-lg me-3">
+                            <i class="fas fa-home"></i> Ir al inicio
+                        </a>
+                        <button onclick="history.back()" class="btn btn-outline-primary btn-lg">
+                            <i class="fas fa-arrow-left"></i> Volver atrás
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Enlaces útiles -->
+        <div class="row mt-5">
+            <div class="col-12">
+                <div class="helpful-links text-center">
+                    <h4 class="h5 mb-4 text-muted">Enlaces útiles</h4>
+                    <div class="row justify-content-center">
+                        <div class="col-md-2 col-6 mb-3">
+                            <a href="/" class="link-card text-decoration-none">
+                                <div class="card h-100 text-center">
+                                    <div class="card-body py-3">
+                                        <i class="fas fa-home fa-2x text-primary mb-2"></i>
+                                        <h6 class="card-title mb-0">Inicio</h6>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-2 col-6 mb-3">
+                            <a href="/about" class="link-card text-decoration-none">
+                                <div class="card h-100 text-center">
+                                    <div class="card-body py-3">
+                                        <i class="fas fa-user fa-2x text-info mb-2"></i>
+                                        <h6 class="card-title mb-0">Acerca de</h6>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-2 col-6 mb-3">
+                            <a href="/projects" class="link-card text-decoration-none">
+                                <div class="card h-100 text-center">
+                                    <div class="card-body py-3">
+                                        <i class="fas fa-laptop-code fa-2x text-success mb-2"></i>
+                                        <h6 class="card-title mb-0">Proyectos</h6>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-2 col-6 mb-3">
+                            <a href="/contact" class="link-card text-decoration-none">
+                                <div class="card h-100 text-center">
+                                    <div class="card-body py-3">
+                                        <i class="fas fa-envelope fa-2x text-warning mb-2"></i>
+                                        <h6 class="card-title mb-0">Contacto</h6>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+.error-section {
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+}
+
+.error-code {
+    background: linear-gradient(45deg, #007bff, #6f42c1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 30px rgba(0, 123, 255, 0.3);
+}
+
+.link-card:hover .card {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.link-card .card {
+    transition: all 0.3s ease;
+    border: 1px solid #e9ecef;
+}
+
+.error-icon i {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+</style>
