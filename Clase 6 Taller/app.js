@@ -10,7 +10,24 @@ app.engine('handlebars', engine({
     defaultLayout: 'main',
     layoutsDir: path.join(__dirname, 'views/layouts'),
     partialsDir: path.join(__dirname, 'views/partials'),
-    extname: '.handlebars'
+    extname: '.handlebars',
+    helpers: {
+        // Helper para limitar el número de elementos en un array
+        slice: function(array, start, end) {
+            if (Array.isArray(array)) {
+                return array.slice(start, end);
+            }
+            return [];
+        },
+        // Helper para comparar valores
+        eq: function(a, b) {
+            return a === b;
+        },
+        // Helper para obtener el año actual
+        currentYear: function() {
+            return new Date().getFullYear();
+        }
+    }
 }));
 app.set('view engine', 'handlebars');
 app.set('views', path.join(__dirname, 'views'));
