@@ -1,0 +1,173 @@
+<section class="about-section py-5 mt-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center mb-5">
+                <h1 class="display-5 fw-bold">Acerca de mí</h1>
+                <p class="lead text-muted">Conoce más sobre mi trayectoria y experiencia</p>
+            </div>
+        </div>
+        
+        <div class="row align-items-center mb-5">
+            <div class="col-lg-4 text-center mb-4">
+                <div class="profile-image-large">
+                    <i class="fas fa-user-circle fa-10x text-primary"></i>
+                    <p class="mt-3 text-muted">
+                        <small>Foto de perfil placeholder</small>
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="about-content">
+                    <h2 class="h3 mb-4 text-primary">{{name}}</h2>
+                    <h3 class="h5 mb-3 text-secondary">{{title}}</h3>
+                    <p class="lead mb-4">{{bio}}</p>
+                    
+                    <div class="about-details">
+                        <p>
+                            Soy un estudiante apasionado por el desarrollo web, siempre buscando aprender 
+                            nuevas tecnologías y mejorar mis habilidades. Me especializo en el desarrollo 
+                            full-stack, con experiencia en tanto el frontend como el backend.
+                        </p>
+                        
+                        <p>
+                            Mi enfoque se centra en crear aplicaciones web funcionales, eficientes y 
+                            visualmente atractivas. Disfruto trabajando en equipo y enfrentando nuevos 
+                            desafíos que me permitan crecer profesionalmente.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Información Personal -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <h3 class="h4 mb-4 text-center">Información Personal</h3>
+            </div>
+            <div class="col-md-6">
+                <div class="info-card p-4 bg-light rounded">
+                    <h4 class="h6 text-primary mb-3">
+                        <i class="fas fa-user"></i> Datos Personales
+                    </h4>
+                    <ul class="list-unstyled mb-0">
+                        <li class="mb-2">
+                            <strong>Nombre:</strong> {{name}}
+                        </li>
+                        <li class="mb-2">
+                            <strong>Email:</strong> 
+                            <a href="mailto:{{contact.email}}">{{contact.email}}</a>
+                        </li>
+                        <li class="mb-2">
+                            <strong>Teléfono:</strong> {{contact.phone}}
+                        </li>
+                        <li class="mb-2">
+                            <strong>Ubicación:</strong> {{contact.location}}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="info-card p-4 bg-light rounded">
+                    <h4 class="h6 text-primary mb-3">
+                        <i class="fas fa-graduation-cap"></i> Formación
+                    </h4>
+                    <ul class="list-unstyled mb-0">
+                        <li class="mb-2">
+                            <strong>Universidad:</strong> Universidad Técnica del Norte
+                        </li>
+                        <li class="mb-2">
+                            <strong>Carrera:</strong> Ingeniería en Software
+                        </li>
+                        <li class="mb-2">
+                            <strong>Semestre:</strong> VII Semestre
+                        </li>
+                        <li class="mb-2">
+                            <strong>Estado:</strong> Estudiante activo
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Habilidades Técnicas -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <h3 class="h4 mb-4 text-center">Habilidades Técnicas</h3>
+            </div>
+            <div class="col-12">
+                <div class="skills-section bg-white p-4 rounded shadow-sm">
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <h5 class="h6 text-primary mb-3">Frontend</h5>
+                            <div class="skill-list">
+                                <span class="skill-badge me-2 mb-2">HTML5</span>
+                                <span class="skill-badge me-2 mb-2">CSS3</span>
+                                <span class="skill-badge me-2 mb-2">JavaScript</span>
+                                <span class="skill-badge me-2 mb-2">React</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <h5 class="h6 text-primary mb-3">Backend</h5>
+                            <div class="skill-list">
+                                <span class="skill-badge me-2 mb-2">Node.js</span>
+                                <span class="skill-badge me-2 mb-2">Express</span>
+                                <span class="skill-badge me-2 mb-2">MongoDB</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <h5 class="h6 text-primary mb-3">Herramientas</h5>
+                            <div class="skill-list">
+                                <span class="skill-badge me-2 mb-2">Git</span>
+                                <span class="skill-badge me-2 mb-2">VS Code</span>
+                                <span class="skill-badge me-2 mb-2">Handlebars</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Intereses -->
+        <div class="row">
+            <div class="col-12">
+                <h3 class="h4 mb-4 text-center">Intereses y Objetivos</h3>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="interest-card p-4 bg-primary text-white rounded">
+                    <h4 class="h6 mb-3">
+                        <i class="fas fa-code"></i> Desarrollo Web
+                    </h4>
+                    <p class="mb-0">
+                        Crear aplicaciones web modernas y escalables que resuelvan problemas reales.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="interest-card p-4 bg-success text-white rounded">
+                    <h4 class="h6 mb-3">
+                        <i class="fas fa-mobile-alt"></i> Desarrollo Móvil
+                    </h4>
+                    <p class="mb-0">
+                        Expandir mis conocimientos hacia el desarrollo de aplicaciones móviles.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Call to Action -->
+        <div class="row mt-5">
+            <div class="col-12 text-center">
+                <div class="cta-about">
+                    <h3 class="h4 mb-3">¿Quieres conocer mi trabajo?</h3>
+                    <p class="mb-4">Echa un vistazo a mis proyectos y no dudes en contactarme</p>
+                    <a href="/projects" class="btn btn-primary btn-lg me-3">
+                        <i class="fas fa-laptop-code"></i> Ver Proyectos
+                    </a>
+                    <a href="/contact" class="btn btn-outline-primary btn-lg">
+                        <i class="fas fa-envelope"></i> Contactar
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

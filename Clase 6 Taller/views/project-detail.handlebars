@@ -1,0 +1,252 @@
+<section class="project-detail-section py-5 mt-5">
+    <div class="container">
+        <!-- Navegación de retorno -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="/" class="text-decoration-none">
+                                <i class="fas fa-home"></i> Inicio
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a href="/projects" class="text-decoration-none">Proyectos</a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">{{project.name}}</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+
+        <!-- Encabezado del proyecto -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="project-header text-center">
+                    <h1 class="display-5 fw-bold mb-3">{{project.name}}</h1>
+                    <p class="lead text-muted mb-4">{{project.description}}</p>
+                    
+                    <div class="project-actions">
+                        {{#if project.demo}}
+                        <a href="{{project.demo}}" class="btn btn-success btn-lg me-3" target="_blank">
+                            <i class="fas fa-external-link-alt"></i> Ver Demo
+                        </a>
+                        {{/if}}
+                        <a href="{{project.github}}" class="btn btn-dark btn-lg" target="_blank">
+                            <i class="fab fa-github"></i> Ver Código
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contenido principal del proyecto -->
+        <div class="row">
+            <div class="col-lg-8 mb-4">
+                <!-- Imagen/Screenshot del proyecto -->
+                <div class="project-image-container mb-4">
+                    <div class="project-screenshot bg-light rounded p-5 text-center">
+                        <i class="fas fa-image fa-5x text-muted mb-3"></i>
+                        <p class="text-muted mb-0">Screenshot del proyecto - Placeholder</p>
+                    </div>
+                </div>
+
+                <!-- Descripción detallada -->
+                <div class="project-description mb-4">
+                    <h3 class="h4 mb-3">Descripción del Proyecto</h3>
+                    <div class="description-content">
+                        {{#if (eq project.id 1)}}
+                        <p>
+                            Este proyecto de e-commerce es una aplicación web completa que permite a los usuarios 
+                            navegar productos, agregarlos al carrito de compras y realizar transacciones seguras.
+                        </p>
+                        <p>
+                            La aplicación incluye un panel de administración para gestionar productos, órdenes 
+                            y usuarios. Se implementó autenticación de usuarios, procesamiento de pagos y 
+                            notificaciones por email.
+                        </p>
+                        <h5>Características principales:</h5>
+                        <ul>
+                            <li>Catálogo de productos con búsqueda y filtros</li>
+                            <li>Carrito de compras persistente</li>
+                            <li>Sistema de autenticación de usuarios</li>
+                            <li>Panel de administración</li>
+                            <li>Procesamiento de pagos</li>
+                            <li>Historial de órdenes</li>
+                        </ul>
+                        {{else if (eq project.id 2)}}
+                        <p>
+                            Una aplicación de gestión de tareas diseñada para aumentar la productividad personal 
+                            y de equipos. Permite crear, organizar y dar seguimiento a tareas de manera intuitiva.
+                        </p>
+                        <p>
+                            La interfaz está construida con React y ofrece funcionalidades como drag & drop, 
+                            categorización de tareas, fechas límite y colaboración en tiempo real.
+                        </p>
+                        <h5>Características principales:</h5>
+                        <ul>
+                            <li>Creación y edición de tareas</li>
+                            <li>Organización por categorías</li>
+                            <li>Fechas límite y recordatorios</li>
+                            <li>Colaboración en equipo</li>
+                            <li>Dashboard de productividad</li>
+                            <li>Sincronización en tiempo real</li>
+                        </ul>
+                        {{else if (eq project.id 3)}}
+                        <p>
+                            Dashboard interactivo del clima que muestra información meteorológica actual y 
+                            pronósticos utilizando APIs de servicios climáticos. Incluye visualizaciones 
+                            gráficas y mapas interactivos.
+                        </p>
+                        <p>
+                            Desarrollado con JavaScript vanilla y Chart.js para crear gráficos dinámicos 
+                            que muestran tendencias de temperatura, precipitación y otros datos meteorológicos.
+                        </p>
+                        <h5>Características principales:</h5>
+                        <ul>
+                            <li>Clima actual por ubicación</li>
+                            <li>Pronóstico de 7 días</li>
+                            <li>Gráficos interactivos</li>
+                            <li>Mapas de clima</li>
+                            <li>Alertas meteorológicas</li>
+                            <li>Múltiples ubicaciones</li>
+                        </ul>
+                        {{/if}}
+                    </div>
+                </div>
+
+                <!-- Desafíos y soluciones -->
+                <div class="project-challenges mb-4">
+                    <h3 class="h4 mb-3">Desafíos y Soluciones</h3>
+                    <div class="challenges-content bg-light p-4 rounded">
+                        {{#if (eq project.id 1)}}
+                        <div class="challenge mb-3">
+                            <h6 class="text-primary">Desafío: Gestión del estado del carrito</h6>
+                            <p class="mb-0">
+                                Implementé una solución usando localStorage para persistir el carrito 
+                                entre sesiones y Context API de React para la gestión global del estado.
+                            </p>
+                        </div>
+                        <div class="challenge mb-3">
+                            <h6 class="text-primary">Desafío: Seguridad en pagos</h6>
+                            <p class="mb-0">
+                                Integré una pasarela de pagos segura y implementé validación tanto 
+                                en el frontend como en el backend para proteger las transacciones.
+                            </p>
+                        </div>
+                        {{else if (eq project.id 2)}}
+                        <div class="challenge mb-3">
+                            <h6 class="text-primary">Desafío: Sincronización en tiempo real</h6>
+                            <p class="mb-0">
+                                Utilicé WebSockets para mantener sincronizados los datos entre 
+                                múltiples usuarios y dispositivos en tiempo real.
+                            </p>
+                        </div>
+                        <div class="challenge mb-3">
+                            <h6 class="text-primary">Desafío: Rendimiento con muchas tareas</h6>
+                            <p class="mb-0">
+                                Implementé virtualización de listas y paginación para manejar 
+                                eficientemente grandes cantidades de tareas.
+                            </p>
+                        </div>
+                        {{else}}
+                        <div class="challenge mb-3">
+                            <h6 class="text-primary">Desafío: Manejo de APIs externas</h6>
+                            <p class="mb-0">
+                                Implementé un sistema de caché y manejo de errores robusto para 
+                                gestionar la disponibilidad intermitente de las APIs climáticas.
+                            </p>
+                        </div>
+                        <div class="challenge mb-3">
+                            <h6 class="text-primary">Desafío: Visualización de datos complejos</h6>
+                            <p class="mb-0">
+                                Utilicé Chart.js y librerías de mapas para crear visualizaciones 
+                                intuitivas y responsivas de los datos meteorológicos.
+                            </p>
+                        </div>
+                        {{/if}}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="col-lg-4">
+                <!-- Información técnica -->
+                <div class="project-info-card card mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="card-title mb-0">
+                            <i class="fas fa-info-circle"></i> Información Técnica
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="info-item mb-3">
+                            <h6 class="text-primary mb-2">Tecnologías</h6>
+                            <div class="tech-badges">
+                                {{#each project.technologies}}
+                                <span class="tech-badge me-1 mb-2">{{this}}</span>
+                                {{/each}}
+                            </div>
+                        </div>
+                        
+                        <div class="info-item mb-3">
+                            <h6 class="text-primary mb-2">Estado</h6>
+                            <span class="badge bg-success">Completado</span>
+                        </div>
+                        
+                        <div class="info-item mb-3">
+                            <h6 class="text-primary mb-2">Tipo</h6>
+                            <span class="text-muted">Aplicación Web</span>
+                        </div>
+                        
+                        <div class="info-item">
+                            <h6 class="text-primary mb-2">Enlaces</h6>
+                            <div class="project-links">
+                                <a href="{{project.github}}" class="btn btn-outline-dark btn-sm mb-2 w-100" target="_blank">
+                                    <i class="fab fa-github"></i> Repositorio GitHub
+                                </a>
+                                {{#if project.demo}}
+                                <a href="{{project.demo}}" class="btn btn-outline-success btn-sm w-100" target="_blank">
+                                    <i class="fas fa-external-link-alt"></i> Demo en Vivo
+                                </a>
+                                {{/if}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Otros proyectos -->
+                <div class="related-projects-card card">
+                    <div class="card-header bg-secondary text-white">
+                        <h5 class="card-title mb-0">
+                            <i class="fas fa-folder"></i> Otros Proyectos
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="text-center">
+                            <p class="text-muted mb-3">¿Te gustó este proyecto?</p>
+                            <a href="/projects" class="btn btn-primary btn-sm">
+                                <i class="fas fa-arrow-left"></i> Ver todos los proyectos
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Call to Action -->
+        <div class="row mt-5">
+            <div class="col-12">
+                <div class="project-cta text-center py-5 bg-primary text-white rounded">
+                    <h3 class="h4 mb-3">¿Interesado en colaborar?</h3>
+                    <p class="mb-4">
+                        Si te gustó este proyecto y quieres discutir una colaboración, 
+                        no dudes en contactarme.
+                    </p>
+                    <a href="/contact" class="btn btn-warning btn-lg">
+                        <i class="fas fa-envelope"></i> Enviar mensaje
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

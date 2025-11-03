@@ -1,0 +1,230 @@
+<section class="contact-section py-5 mt-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center mb-5">
+                <h1 class="display-5 fw-bold">Contacto</h1>
+                <p class="lead text-muted">¿Tienes un proyecto en mente? ¡Hablemos!</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Información de contacto -->
+            <div class="col-lg-4 mb-4">
+                <div class="contact-info">
+                    <h3 class="h4 mb-4">Información de Contacto</h3>
+                    
+                    <div class="contact-item mb-4">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope fa-2x text-primary mb-3"></i>
+                        </div>
+                        <h5 class="h6 text-primary">Email</h5>
+                        <p class="mb-0">
+                            <a href="mailto:{{contact.email}}" class="text-decoration-none">
+                                {{contact.email}}
+                            </a>
+                        </p>
+                    </div>
+
+                    <div class="contact-item mb-4">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone fa-2x text-primary mb-3"></i>
+                        </div>
+                        <h5 class="h6 text-primary">Teléfono</h5>
+                        <p class="mb-0">
+                            <a href="tel:{{contact.phone}}" class="text-decoration-none">
+                                {{contact.phone}}
+                            </a>
+                        </p>
+                    </div>
+
+                    <div class="contact-item mb-4">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt fa-2x text-primary mb-3"></i>
+                        </div>
+                        <h5 class="h6 text-primary">Ubicación</h5>
+                        <p class="mb-0">{{contact.location}}</p>
+                    </div>
+
+                    <!-- Redes sociales -->
+                    <div class="social-links mt-4">
+                        <h5 class="h6 text-primary mb-3">Sígueme en:</h5>
+                        <div class="d-flex">
+                            {{#if contact.github}}
+                            <a href="{{contact.github}}" class="btn btn-outline-dark me-2" target="_blank">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            {{/if}}
+                            {{#if contact.linkedin}}
+                            <a href="{{contact.linkedin}}" class="btn btn-outline-primary me-2" target="_blank">
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+                            {{/if}}
+                            <a href="mailto:{{contact.email}}" class="btn btn-outline-success">
+                                <i class="fas fa-envelope"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Formulario de contacto -->
+            <div class="col-lg-8">
+                <div class="contact-form-container">
+                    <div class="card shadow-sm border-0">
+                        <div class="card-body p-4">
+                            <h3 class="h4 mb-4">Envíame un mensaje</h3>
+                            
+                            <form id="contactForm" class="contact-form">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="nombre" class="form-label">Nombre *</label>
+                                        <input type="text" class="form-control" id="nombre" name="nombre" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="email" class="form-label">Email *</label>
+                                        <input type="email" class="form-control" id="email" name="email" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="telefono" class="form-label">Teléfono</label>
+                                        <input type="tel" class="form-control" id="telefono" name="telefono">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="empresa" class="form-label">Empresa/Organización</label>
+                                        <input type="text" class="form-control" id="empresa" name="empresa">
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="asunto" class="form-label">Asunto *</label>
+                                    <select class="form-select" id="asunto" name="asunto" required>
+                                        <option value="">Selecciona un asunto</option>
+                                        <option value="proyecto">Nuevo Proyecto</option>
+                                        <option value="colaboracion">Colaboración</option>
+                                        <option value="consultoria">Consultoría</option>
+                                        <option value="empleo">Oportunidad de Empleo</option>
+                                        <option value="otro">Otro</option>
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="mensaje" class="form-label">Mensaje *</label>
+                                    <textarea class="form-control" id="mensaje" name="mensaje" rows="6" 
+                                        placeholder="Describe tu proyecto o consulta..." required></textarea>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="presupuesto" class="form-label">Presupuesto Estimado (Opcional)</label>
+                                    <select class="form-select" id="presupuesto" name="presupuesto">
+                                        <option value="">Selecciona un rango</option>
+                                        <option value="500-1000">$500 - $1,000</option>
+                                        <option value="1000-2500">$1,000 - $2,500</option>
+                                        <option value="2500-5000">$2,500 - $5,000</option>
+                                        <option value="5000+">$5,000+</option>
+                                        <option value="negociable">A negociar</option>
+                                    </select>
+                                </div>
+
+                                <div class="mb-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="privacidad" name="privacidad" required>
+                                        <label class="form-check-label" for="privacidad">
+                                            Acepto que mis datos sean utilizados para responder mi consulta *
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="d-grid">
+                                    <button type="submit" class="btn btn-primary btn-lg">
+                                        <i class="fas fa-paper-plane"></i> Enviar Mensaje
+                                    </button>
+                                </div>
+                            </form>
+
+                            <!-- Mensaje de confirmación (oculto por defecto) -->
+                            <div id="mensajeExito" class="alert alert-success mt-3" style="display: none;">
+                                <i class="fas fa-check-circle"></i>
+                                ¡Gracias por tu mensaje! Te responderé lo antes posible.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Información adicional -->
+        <div class="row mt-5">
+            <div class="col-12">
+                <div class="contact-additional-info">
+                    <div class="row text-center">
+                        <div class="col-md-4 mb-4">
+                            <div class="info-card p-4 bg-light rounded">
+                                <i class="fas fa-clock fa-3x text-primary mb-3"></i>
+                                <h5 class="h6 text-primary">Tiempo de Respuesta</h5>
+                                <p class="mb-0">Usualmente respondo en menos de 24 horas</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <div class="info-card p-4 bg-light rounded">
+                                <i class="fas fa-handshake fa-3x text-success mb-3"></i>
+                                <h5 class="h6 text-success">Consulta Gratis</h5>
+                                <p class="mb-0">La primera consulta siempre es gratuita</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <div class="info-card p-4 bg-light rounded">
+                                <i class="fas fa-shield-alt fa-3x text-warning mb-3"></i>
+                                <h5 class="h6 text-warning">Confidencialidad</h5>
+                                <p class="mb-0">Tu información está completamente segura</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const contactForm = document.getElementById('contactForm');
+    const mensajeExito = document.getElementById('mensajeExito');
+
+    contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Aquí normalmente enviarías los datos a un servidor
+        // Para este demo, solo mostramos un mensaje de éxito
+        
+        // Simular un pequeño delay como si estuviera enviando
+        const submitBtn = contactForm.querySelector('button[type="submit"]');
+        const originalText = submitBtn.innerHTML;
+        
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
+        submitBtn.disabled = true;
+        
+        setTimeout(function() {
+            // Mostrar mensaje de éxito
+            mensajeExito.style.display = 'block';
+            
+            // Resetear formulario
+            contactForm.reset();
+            
+            // Restaurar botón
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+            
+            // Scroll al mensaje de éxito
+            mensajeExito.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            
+            // Ocultar mensaje después de 5 segundos
+            setTimeout(function() {
+                mensajeExito.style.display = 'none';
+            }, 5000);
+            
+        }, 1500);
+    });
+});
+</script>

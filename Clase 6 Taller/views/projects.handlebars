@@ -1,0 +1,183 @@
+<section class="projects-section py-5 mt-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center mb-5">
+                <h1 class="display-5 fw-bold">Mis Proyectos</h1>
+                <p class="lead text-muted">Una colección de mis trabajos y creaciones</p>
+            </div>
+        </div>
+
+        <!-- Filtros de Proyectos -->
+        <div class="row mb-4">
+            <div class="col-12 text-center">
+                <div class="project-filters">
+                    <button class="btn btn-outline-primary me-2 mb-2 active" data-filter="all">
+                        <i class="fas fa-th"></i> Todos
+                    </button>
+                    <button class="btn btn-outline-primary me-2 mb-2" data-filter="web">
+                        <i class="fas fa-globe"></i> Web Apps
+                    </button>
+                    <button class="btn btn-outline-primary me-2 mb-2" data-filter="api">
+                        <i class="fas fa-cogs"></i> APIs
+                    </button>
+                    <button class="btn btn-outline-primary me-2 mb-2" data-filter="frontend">
+                        <i class="fas fa-palette"></i> Frontend
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Grid de Proyectos -->
+        <div class="row">
+            {{#each projects}}
+            <div class="col-lg-4 col-md-6 mb-4 project-item" data-category="web">
+                <div class="project-card card h-100 shadow-sm border-0">
+                    <div class="project-image">
+                        <div class="image-placeholder bg-light d-flex align-items-center justify-content-center">
+                            <i class="fas fa-laptop-code fa-3x text-muted"></i>
+                        </div>
+                        <div class="project-overlay">
+                            <div class="overlay-content">
+                                <a href="/project/{{id}}" class="btn btn-light btn-sm me-2">
+                                    <i class="fas fa-eye"></i> Ver
+                                </a>
+                                <a href="{{github}}" class="btn btn-dark btn-sm" target="_blank">
+                                    <i class="fab fa-github"></i> Código
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <h5 class="card-title mb-0">{{name}}</h5>
+                            <span class="badge bg-primary">Proyecto {{id}}</span>
+                        </div>
+                        
+                        <p class="card-text text-muted mb-3">{{description}}</p>
+                        
+                        <div class="project-technologies mb-3">
+                            <small class="text-muted fw-bold">Tecnologías:</small>
+                            <div class="mt-2">
+                                {{#each technologies}}
+                                <span class="tech-badge">{{this}}</span>
+                                {{/each}}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-footer bg-transparent border-0 pt-0">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="project-links">
+                                {{#if demo}}
+                                <a href="{{demo}}" class="btn btn-sm btn-outline-success me-2" target="_blank">
+                                    <i class="fas fa-external-link-alt"></i> Demo
+                                </a>
+                                {{/if}}
+                                <a href="{{github}}" class="btn btn-sm btn-outline-dark" target="_blank">
+                                    <i class="fab fa-github"></i> GitHub
+                                </a>
+                            </div>
+                            <a href="/project/{{id}}" class="btn btn-sm btn-primary">
+                                <i class="fas fa-arrow-right"></i> Detalles
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+
+        <!-- Estadísticas de Proyectos -->
+        <div class="row mt-5 py-5 bg-light rounded">
+            <div class="col-12">
+                <h3 class="h4 text-center mb-4">Estadísticas de Proyectos</h3>
+            </div>
+            <div class="col-md-3 text-center mb-3">
+                <div class="stat-card">
+                    <h4 class="stat-number text-primary">{{projects.length}}</h4>
+                    <p class="stat-label text-muted mb-0">Proyectos Completados</p>
+                </div>
+            </div>
+            <div class="col-md-3 text-center mb-3">
+                <div class="stat-card">
+                    <h4 class="stat-number text-success">7</h4>
+                    <p class="stat-label text-muted mb-0">Tecnologías Usadas</p>
+                </div>
+            </div>
+            <div class="col-md-3 text-center mb-3">
+                <div class="stat-card">
+                    <h4 class="stat-number text-warning">500+</h4>
+                    <p class="stat-label text-muted mb-0">Horas de Código</p>
+                </div>
+            </div>
+            <div class="col-md-3 text-center mb-3">
+                <div class="stat-card">
+                    <h4 class="stat-number text-info">100%</h4>
+                    <p class="stat-label text-muted mb-0">Satisfacción</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tecnologías Más Usadas -->
+        <div class="row mt-5">
+            <div class="col-12">
+                <h3 class="h4 text-center mb-4">Tecnologías Más Utilizadas</h3>
+                <div class="tech-cloud text-center">
+                    <span class="tech-cloud-item tech-large">JavaScript</span>
+                    <span class="tech-cloud-item tech-medium">Node.js</span>
+                    <span class="tech-cloud-item tech-large">Express</span>
+                    <span class="tech-cloud-item tech-small">MongoDB</span>
+                    <span class="tech-cloud-item tech-medium">React</span>
+                    <span class="tech-cloud-item tech-small">Handlebars</span>
+                    <span class="tech-cloud-item tech-medium">Bootstrap</span>
+                    <span class="tech-cloud-item tech-small">MySQL</span>
+                    <span class="tech-cloud-item tech-large">HTML5</span>
+                    <span class="tech-cloud-item tech-medium">CSS3</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Call to Action -->
+        <div class="row mt-5">
+            <div class="col-12 text-center">
+                <div class="projects-cta">
+                    <h3 class="h4 mb-3">¿Tienes una idea en mente?</h3>
+                    <p class="mb-4">
+                        Estoy siempre buscando nuevos proyectos interesantes para trabajar
+                    </p>
+                    <a href="/contact" class="btn btn-primary btn-lg">
+                        <i class="fas fa-paper-plane"></i> Hablemos de tu proyecto
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+// Filtros de proyectos (funcionalidad básica)
+document.addEventListener('DOMContentLoaded', function() {
+    const filterButtons = document.querySelectorAll('.project-filters button');
+    const projectItems = document.querySelectorAll('.project-item');
+    
+    filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // Remover clase activa de todos los botones
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            // Agregar clase activa al botón clickeado
+            this.classList.add('active');
+            
+            const filterValue = this.getAttribute('data-filter');
+            
+            projectItems.forEach(item => {
+                if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+    });
+});
+</script>
