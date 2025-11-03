@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskManager SPA - Gestor de Tareas Personales</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header de la aplicación -->
+    <header class="app-header">
+        <div class="container">
+            <h1 class="app-title">
+                <i class="fas fa-tasks"></i>
+                TaskManager SPA
+            </h1>
+            <div class="header-stats">
+                <span class="stat-item">
+                    <i class="fas fa-list"></i>
+                    Total: <span id="total-tasks">0</span>
+                </span>
+                <span class="stat-item">
+                    <i class="fas fa-check-circle"></i>
+                    Completadas: <span id="completed-tasks">0</span>
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Contenedor principal de la SPA -->
+    <main class="app-main">
+        <div class="container">
+            <!-- Panel de control -->
+            <section class="control-panel">
+                <div class="panel-section">
+                    <h2>Agregar Nueva Tarea</h2>
+                    <form id="task-form" class="task-form">
+                        <div class="form-group">
+                            <label for="task-title">Título de la tarea:</label>
+                            <input type="text" id="task-title" placeholder="Escribe el título de tu tarea..." required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="task-description">Descripción:</label>
+                            <textarea id="task-description" placeholder="Describe tu tarea (opcional)..." rows="3"></textarea>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="task-priority">Nivel de Importancia:</label>
+                                <select id="task-priority" required>
+                                    <option value="">Seleccionar...</option>
+                                    <option value="high">🔴 Alta</option>
+                                    <option value="medium">🟡 Media</option>
+                                    <option value="low">🟢 Baja</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="task-due-date">Fecha límite:</label>
+                                <input type="date" id="task-due-date">
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-plus"></i> Agregar Tarea
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Filtros y búsqueda -->
+                <div class="panel-section">
+                    <h3>Filtros y Búsqueda</h3>
+                    <div class="filters-container">
+                        <div class="search-group">
+                            <input type="text" id="search-input" placeholder="Buscar tareas...">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        
+                        <div class="filter-buttons">
+                            <button class="filter-btn active" data-filter="all">
+                                <i class="fas fa-list"></i> Todas
+                            </button>
+                            <button class="filter-btn" data-filter="pending">
+                                <i class="fas fa-clock"></i> Pendientes
+                            </button>
+                            <button class="filter-btn" data-filter="completed">
+                                <i class="fas fa-check"></i> Completadas
+                            </button>
+                        </div>
+                        
+                        <div class="priority-filters">
+                            <button class="priority-filter" data-priority="high">🔴 Alta</button>
+                            <button class="priority-filter" data-priority="medium">🟡 Media</button>
+                            <button class="priority-filter" data-priority="low">🟢 Baja</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Lista de tareas -->
+            <section class="tasks-section">
+                <div class="section-header">
+                    <h2>Mis Tareas</h2>
+                    <div class="sort-controls">
+                        <label for="sort-select">Ordenar por:</label>
+                        <select id="sort-select">
+                            <option value="date-desc">Fecha (más reciente)</option>
+                            <option value="date-asc">Fecha (más antigua)</option>
+                            <option value="priority">Prioridad</option>
+                            <option value="title">Título</option>
+                            <option value="due-date">Fecha límite</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <!-- Contenedor de las tareas -->
+                <div id="tasks-container" class="tasks-container">
+                    <!-- Las tareas se insertarán dinámicamente aquí -->
+                </div>
+                
+                <!-- Mensaje cuando no hay tareas -->
+                <div id="empty-state" class="empty-state">
+                    <i class="fas fa-clipboard-list"></i>
+                    <h3>No hay tareas todavía</h3>
+                    <p>¡Comienza agregando tu primera tarea!</p>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Modal para editar tareas -->
+    <div id="edit-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Editar Tarea</h3>
+                <button class="close-modal" id="close-edit-modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="edit-task-form">
+                <div class="form-group">
+                    <label for="edit-task-title">Título:</label>
+                    <input type="text" id="edit-task-title" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="edit-task-description">Descripción:</label>
+                    <textarea id="edit-task-description" rows="3"></textarea>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="edit-task-priority">Prioridad:</label>
+                        <select id="edit-task-priority" required>
+                            <option value="high">🔴 Alta</option>
+                            <option value="medium">🟡 Media</option>
+                            <option value="low">🟢 Baja</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="edit-task-due-date">Fecha límite:</label>
+                        <input type="date" id="edit-task-due-date">
+                    </div>
+                </div>
+                
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" id="cancel-edit">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal de confirmación para eliminar -->
+    <div id="delete-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Confirmar Eliminación</h3>
+                <button class="close-modal" id="close-delete-modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>¿Estás seguro de que quieres eliminar esta tarea?</p>
+                <p class="warning-text">Esta acción no se puede deshacer.</p>
+            </div>
+            <div class="modal-actions">
+                <button type="button" class="btn btn-secondary" id="cancel-delete">Cancelar</button>
+                <button type="button" class="btn btn-danger" id="confirm-delete">Eliminar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notificaciones -->
+    <div id="notifications-container" class="notifications-container">
+        <!-- Las notificaciones se insertarán aquí -->
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/app.js"></script>
+</body>
+</html>
