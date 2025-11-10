@@ -1,0 +1,71 @@
+//- Página Sobre Mí
+extends layout
+
+block content
+  section.about-hero
+    .container
+      h1.page-title Sobre Mí
+      p.page-subtitle Conoce más acerca de mi trayectoria y habilidades
+  
+  section.about-content
+    .container
+      .about-grid
+        .about-text
+          h2 Mi Historia
+          p
+            | Soy un desarrollador web apasionado por crear soluciones digitales que 
+            | marquen la diferencia. Mi viaje en el mundo de la programación comenzó hace 
+            | varios años y desde entonces no he parado de aprender y crecer.
+          
+          p
+            | Me especializo en el desarrollo full stack con JavaScript, trabajando tanto 
+            | en el frontend como en el backend. Disfruto enfrentando desafíos técnicos 
+            | y transformando ideas complejas en aplicaciones elegantes y funcionales.
+          
+          h3 Filosofía de Trabajo
+          ul.philosophy-list
+            li
+              strong Código limpio: 
+              | Escribir código legible y mantenible es una prioridad
+            li
+              strong Aprendizaje continuo: 
+              | La tecnología evoluciona y yo también
+            li
+              strong Trabajo en equipo: 
+              | Los mejores resultados surgen de la colaboración
+            li
+              strong Enfoque en el usuario: 
+              | El usuario final es siempre el centro de cada decisión
+        
+        .about-image
+          .image-wrapper
+            .profile-placeholder
+              span.profile-text 👨‍💻
+  
+  //- Sección de habilidades
+  section.skills
+    .container
+      h2.section-title Habilidades Técnicas
+      
+      .skills-grid
+        each habilidad in habilidades
+          .skill-item
+            .skill-header
+              span.skill-name= habilidad.nombre
+              span.skill-percentage #{habilidad.nivel}%
+            .skill-bar
+              .skill-progress(style=`width: ${habilidad.nivel}%`)
+  
+  //- Sección de educación
+  section.education
+    .container
+      h2.section-title Educación
+      
+      .education-timeline
+        each edu in educacion
+          .education-item
+            .education-icon 🎓
+            .education-details
+              h3= edu.titulo
+              p.institution= edu.institucion
+              p.period= edu.periodo

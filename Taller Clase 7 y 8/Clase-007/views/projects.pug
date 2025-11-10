@@ -1,0 +1,77 @@
+//- Página de Proyectos
+extends layout
+
+block content
+  section.projects-hero
+    .container
+      h1.page-title Mis Proyectos
+      p.page-subtitle Una selección de mi trabajo reciente
+  
+  section.projects-content
+    .container
+      //- Filtros de proyectos
+      .projects-filters
+        button.filter-btn.active(data-filter='all') Todos
+        button.filter-btn(data-filter='completado') Completados
+        button.filter-btn(data-filter='desarrollo') En Desarrollo
+      
+      //- Grid de proyectos
+      .projects-grid
+        each proyecto in proyectos
+          article.project-card(data-status=proyecto.estado.toLowerCase().replace(' ', '-'))
+            .project-image
+              //- Placeholder de imagen
+              .project-placeholder
+                span.placeholder-text 📁
+            
+            .project-content
+              .project-header
+                h3.project-title= proyecto.nombre
+                span.project-status(class=`status-${proyecto.estado.toLowerCase().replace(' ', '-')}`)
+                  = proyecto.estado
+              
+              p.project-description= proyecto.descripcion
+              
+              .project-tech
+                each tech in proyecto.tecnologias
+                  span.tech-tag= tech
+              
+              .project-actions
+                a.btn.btn-small(href='#') Ver Demo
+                a.btn.btn-small.btn-outline(href='#') Código
+  
+  //- Call to action
+  section.cta
+    .container
+      .cta-content
+        h2 ¿Tienes un proyecto en mente?
+        p Estoy disponible para nuevos proyectos y colaboraciones
+        a.btn.btn-primary.btn-large(href='/contacto') Hablemos
+  
+block scripts
+  script.
+    // Script simple para filtros de proyectos
+    document.addEventListener('DOMContentLoaded', () => {
+      const filterButtons = document.querySelectorAll('.filter-btn');
+      const projectCards = document.querySelectorAll('.project-card');
+      
+      filterButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          // Remover clase active de todos los botones
+          filterButtons.forEach(btn => btn.classList.remove('active'));
+          // Agregar clase active al botón clickeado
+          button.classList.add('active');
+          
+          const filter = button.getAttribute('data-filter');
+          
+          projectCards.forEach(card => {
+            if (filter === 'all') {
+              card.style.display = 'block';
+            } else {
+              const status = card.getAttribute('data-status');
+              card.style.display = status === filter ? 'block' : 'none';
+            }
+          });
+        });
+      });
+    });

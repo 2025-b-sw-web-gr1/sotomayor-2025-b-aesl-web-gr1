@@ -1,0 +1,71 @@
+//- Página de inicio
+extends layout
+
+block content
+  section.hero
+    .container
+      .hero-content
+        .hero-text
+          h1.hero-title
+            | Hola, soy 
+            span.highlight= nombre
+          
+          h2.hero-subtitle= profesion
+          
+          p.hero-description= descripcion
+          
+          .hero-buttons
+            a.btn.btn-primary(href='/proyectos') Ver Proyectos
+            a.btn.btn-secondary(href='/contacto') Contactar
+        
+        .hero-image
+          .image-container
+            //- Placeholder para imagen
+            .avatar-placeholder
+              span.avatar-text= nombre.charAt(0) + nombre.split(' ')[1].charAt(0)
+  
+  //- Sección de características destacadas
+  section.features
+    .container
+      h2.section-title Lo que hago
+      
+      .features-grid
+        .feature-card
+          .feature-icon 💻
+          h3 Desarrollo Web
+          p Creación de aplicaciones web modernas y responsivas usando las últimas tecnologías
+        
+        .feature-card
+          .feature-icon 🎨
+          h3 Diseño UI/UX
+          p Diseño de interfaces intuitivas centradas en la experiencia del usuario
+        
+        .feature-card
+          .feature-icon 🚀
+          h3 Optimización
+          p Mejora del rendimiento y SEO para alcanzar los mejores resultados
+        
+        .feature-card
+          .feature-icon 📱
+          h3 Responsive Design
+          p Diseños que se adaptan perfectamente a cualquier dispositivo
+  
+  //- Sección de estadísticas
+  section.stats
+    .container
+      .stats-grid
+        .stat-card
+          .stat-number 3+
+          .stat-label Años de Experiencia
+        
+        .stat-card
+          .stat-number 15+
+          .stat-label Proyectos Completados
+        
+        .stat-card
+          .stat-number 10+
+          .stat-label Tecnologías Dominadas
+        
+        .stat-card
+          .stat-number 100%
+          .stat-label Satisfacción del Cliente

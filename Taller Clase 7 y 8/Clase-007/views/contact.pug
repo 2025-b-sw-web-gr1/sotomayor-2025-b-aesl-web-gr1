@@ -1,0 +1,115 @@
+//- Página de Contacto
+extends layout
+
+block content
+  section.contact-hero
+    .container
+      h1.page-title Contacto
+      p.page-subtitle Conectemos y hagamos realidad tu proyecto
+  
+  section.contact-content
+    .container
+      .contact-grid
+        .contact-info
+          h2 Información de Contacto
+          
+          .contact-methods
+            .contact-method
+              .method-icon 📧
+              div
+                h3 Email
+                a(href='mailto:alexis@example.com') alexis@example.com
+            
+            .contact-method
+              .method-icon 📱
+              div
+                h3 Teléfono
+                a(href='tel:+593987654321') +593 98 765 4321
+            
+            .contact-method
+              .method-icon 📍
+              div
+                h3 Ubicación
+                p Ibarra, Ecuador
+          
+          h3.social-title Redes Sociales
+          .social-grid
+            each red in redes
+              a.social-card(href=red.url, target='_blank', rel='noopener noreferrer')
+                .social-icon= red.icono === 'github' ? '💻' : red.icono === 'linkedin' ? '💼' : '📧'
+                span= red.nombre
+        
+        .contact-form-wrapper
+          h2 Envíame un Mensaje
+          
+          form.contact-form
+            .form-group
+              label(for='name') Nombre Completo
+              input#name.form-control(
+                type='text',
+                name='name',
+                placeholder='Tu nombre',
+                required
+              )
+            
+            .form-group
+              label(for='email') Correo Electrónico
+              input#email.form-control(
+                type='email',
+                name='email',
+                placeholder='tu@email.com',
+                required
+              )
+            
+            .form-group
+              label(for='subject') Asunto
+              input#subject.form-control(
+                type='text',
+                name='subject',
+                placeholder='¿De qué quieres hablar?',
+                required
+              )
+            
+            .form-group
+              label(for='message') Mensaje
+              textarea#message.form-control(
+                name='message',
+                rows='6',
+                placeholder='Cuéntame sobre tu proyecto...',
+                required
+              )
+            
+            button.btn.btn-primary.btn-block(type='submit') Enviar Mensaje
+  
+  //- Mapa o información adicional
+  section.availability
+    .container
+      .availability-content
+        h2 Disponibilidad
+        p Actualmente estoy 
+          strong.available disponible 
+          | para nuevos proyectos
+        
+        .availability-schedule
+          .schedule-item
+            strong Lunes - Viernes:
+            |  9:00 AM - 6:00 PM
+          .schedule-item
+            strong Tiempo de respuesta:
+            |  24-48 horas
+
+block scripts
+  script.
+    // Validación y manejo del formulario
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.querySelector('.contact-form');
+      
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        // Aquí iría la lógica para enviar el formulario
+        // Por ahora, solo mostramos un mensaje
+        alert('¡Gracias por tu mensaje! Te responderé pronto.');
+        form.reset();
+      });
+    });

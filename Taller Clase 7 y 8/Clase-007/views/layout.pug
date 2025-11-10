@@ -1,0 +1,74 @@
+//- Layout base - Plantilla maestra para todas las páginas
+doctype html
+html(lang='es')
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    meta(name='description', content='Portafolio personal de desarrollo web')
+    title #{title} | Mi Portafolio
+    link(rel='stylesheet', href='/css/styles.css')
+    link(rel='preconnect', href='https://fonts.googleapis.com')
+    link(rel='preconnect', href='https://fonts.gstatic.com', crossorigin='')
+    link(href='https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap', rel='stylesheet')
+  body
+    //- Navegación
+    nav.navbar
+      .container
+        .logo
+          a(href='/') 
+            span.logo-text AS
+            span.logo-full Alexis S.
+        
+        input#menu-toggle.menu-toggle(type='checkbox')
+        label.menu-icon(for='menu-toggle')
+          span.navicon
+        
+        ul.nav-menu
+          li
+            a(href='/', class=title === 'Inicio' ? 'active' : '') Inicio
+          li
+            a(href='/sobre-mi', class=title === 'Sobre Mí' ? 'active' : '') Sobre Mí
+          li
+            a(href='/proyectos', class=title === 'Proyectos' ? 'active' : '') Proyectos
+          li
+            a(href='/contacto', class=title === 'Contacto' ? 'active' : '') Contacto
+    
+    //- Contenido principal (se inyecta aquí)
+    main.main-content
+      block content
+    
+    //- Pie de página
+    footer.footer
+      .container
+        .footer-content
+          .footer-section
+            h3 Sobre este sitio
+            p Este portafolio fue creado usando 
+              strong Pug 
+              | como motor de renderizado, demostrando su sintaxis limpia y concisa.
+          
+          .footer-section
+            h3 Tecnologías
+            ul.tech-list
+              li Node.js
+              li Express
+              li Pug
+              li CSS3
+          
+          .footer-section
+            h3 Enlaces
+            ul.social-links
+              li
+                a(href='https://github.com/alexis', target='_blank') GitHub
+              li
+                a(href='https://linkedin.com/in/alexis', target='_blank') LinkedIn
+              li
+                a(href='mailto:alexis@example.com') Email
+        
+        .footer-bottom
+          p &copy; #{new Date().getFullYear()} Alexis Sotomayor. Creado con 
+            span.heart ❤️
+            |  y Pug
+    
+    //- Scripts
+    block scripts
