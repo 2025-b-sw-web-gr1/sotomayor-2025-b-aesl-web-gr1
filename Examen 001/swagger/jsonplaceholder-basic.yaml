@@ -1,0 +1,107 @@
+openapi: 3.0.0
+info:
+  title: JSONPlaceholder API - Versión Básica
+  description: |
+    Documentación básica de la API REST de JSONPlaceholder.
+    
+    Esta es una versión simplificada para comenzar el taller.
+    Incluye los endpoints más comunes del recurso Posts.
+  version: 1.0.0
+  contact:
+    name: Soporte JSONPlaceholder
+    url: https://jsonplaceholder.typicode.com
+
+servers:
+  - url: https://jsonplaceholder.typicode.com
+    description: Servidor de producción
+
+paths:
+  /posts:
+    get:
+      summary: Obtener todos los posts
+      description: Retorna una lista completa de todos los posts disponibles
+      operationId: getAllPosts
+      tags:
+        - Posts
+      responses:
+        '200':
+          description: Lista de posts obtenida exitosamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Post'
+              examples:
+                ejemplo1:
+                  summary: Primeros dos posts
+                  value:
+                    - userId: 1
+                      id: 1
+                      title: "sunt aut facere repellat provident"
+                      body: "quia et suscipit suscipit recusandae"
+                    - userId: 1
+                      id: 2
+                      title: "qui est esse"
+                      body: "est rerum tempore vitae"
+        '500':
+          description: Error interno del servidor
+
+  /posts/{id}:
+    get:
+      summary: Obtener un post por ID
+      description: Retorna un post específico basado en su ID
+      operationId: getPostById
+      tags:
+        - Posts
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID del post a obtener
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+          example: 1
+      responses:
+        '200':
+          description: Post encontrado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+        '404':
+          description: Post no encontrado
+        '500':
+          description: Error interno del servidor
+
+components:
+  schemas:
+    Post:
+      type: object
+      required:
+        - userId
+        - id
+        - title
+        - body
+      properties:
+        userId:
+          type: integer
+          description: ID del usuario que creó el post
+          example: 1
+        id:
+          type: integer
+          description: ID único del post
+          example: 1
+        title:
+          type: string
+          description: Título del post
+          example: "sunt aut facere repellat provident"
+          minLength: 1
+          maxLength: 255
+        body:
+          type: string
+          description: Contenido completo del post
+          example: "quia et suscipit suscipit recusandae"
+          minLength: 1
