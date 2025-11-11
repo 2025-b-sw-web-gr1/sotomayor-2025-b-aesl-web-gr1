@@ -1,0 +1,35 @@
+meta {
+  name: Delete Player
+  type: http
+  seq: 5
+}
+
+delete {
+  url: {{baseUrl}}/players/1
+  body: none
+  auth: none
+}
+
+params:path {
+  id: 1
+}
+
+docs {
+  # Eliminar Jugador
+  
+  Este endpoint elimina un jugador del sistema.
+  
+  ## Parámetros
+  - `id` (path): ID único del jugador a eliminar
+  
+  ## Respuesta Exitosa (204)
+  Sin contenido - El jugador fue eliminado exitosamente.
+  
+  ## Respuesta Error (404)
+  ```json
+  {
+    "code": 404,
+    "message": "Jugador no encontrado"
+  }
+  ```
+}

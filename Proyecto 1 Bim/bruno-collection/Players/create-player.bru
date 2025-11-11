@@ -1,0 +1,72 @@
+meta {
+  name: Create Player
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/players
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "name": "Lionel Messi",
+    "position": "Delantero",
+    "number": 10,
+    "age": 36,
+    "teamId": 1
+  }
+}
+
+docs {
+  # Crear Nuevo Jugador
+  
+  Este endpoint crea un nuevo jugador y lo asocia a un equipo existente.
+  
+  ## Body (JSON)
+  ```json
+  {
+    "name": "Lionel Messi",
+    "position": "Delantero",
+    "number": 10,
+    "age": 36,
+    "teamId": 1
+  }
+  ```
+  
+  ## Campos Requeridos
+  - `name`: Nombre completo del jugador (3-100 caracteres)
+  - `position`: Posición del jugador (Portero, Defensa, Mediocampista, Delantero)
+  - `teamId`: ID del equipo al que pertenece
+  
+  ## Campos Opcionales
+  - `number`: Número de camiseta (1-99)
+  - `age`: Edad del jugador (16-45)
+  
+  ## Respuesta Exitosa (201)
+  ```json
+  {
+    "id": 1,
+    "name": "Lionel Messi",
+    "position": "Delantero",
+    "number": 10,
+    "age": 36,
+    "teamId": 1
+  }
+  ```
+  
+  ## Respuesta Error (404)
+  Si el `teamId` no existe:
+  ```json
+  {
+    "code": 404,
+    "message": "Equipo no encontrado"
+  }
+  ```
+}

@@ -1,0 +1,44 @@
+meta {
+  name: Get Player By ID
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/players/1
+  body: none
+  auth: none
+}
+
+params:path {
+  id: 1
+}
+
+docs {
+  # Obtener Jugador por ID
+  
+  Este endpoint retorna la información detallada de un jugador específico.
+  
+  ## Parámetros
+  - `id` (path): ID único del jugador
+  
+  ## Respuesta Exitosa (200)
+  ```json
+  {
+    "id": 1,
+    "name": "Lionel Messi",
+    "position": "Delantero",
+    "number": 10,
+    "age": 36,
+    "teamId": 1
+  }
+  ```
+  
+  ## Respuesta Error (404)
+  ```json
+  {
+    "code": 404,
+    "message": "Jugador con ID 1 no encontrado"
+  }
+  ```
+}

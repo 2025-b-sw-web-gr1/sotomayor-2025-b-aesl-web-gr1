@@ -1,0 +1,38 @@
+meta {
+  name: TEST - Get All Users
+  type: http
+  seq: 100
+}
+
+get {
+  url: {{baseUrl}}/users
+  body: none
+  auth: none
+}
+
+docs {
+  # 🧪 PRUEBA - Obtener Todos los Usuarios
+  
+  Esta petición usa JSONPlaceholder para demostrar cómo funciona GET.
+  Equivalente a: GET /players
+  
+  ## URL
+  {{baseUrl}}/users
+  
+  ## Respuesta Exitosa (200)
+  ```json
+  [
+    {
+      "id": 1,
+      "name": "Leanne Graham",
+      "username": "Bret",
+      "email": "Sincere@april.biz",
+      "phone": "1-770-736-8031 x56442"
+    }
+  ]
+  ```
+  
+  ## ✅ Propósito
+  Demostrar que la petición GET funciona correctamente.
+  En producción, esto sería: GET /players
+}

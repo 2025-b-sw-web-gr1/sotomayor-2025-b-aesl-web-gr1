@@ -1,0 +1,59 @@
+meta {
+  name: Create Team
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/teams
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "name": "Barcelona FC",
+    "country": "España",
+    "founded": 1899,
+    "stadium": "Camp Nou"
+  }
+}
+
+docs {
+  # Crear Nuevo Equipo
+  
+  Este endpoint crea un nuevo equipo de fútbol en el sistema.
+  
+  ## Body (JSON)
+  ```json
+  {
+    "name": "Barcelona FC",
+    "country": "España",
+    "founded": 1899,
+    "stadium": "Camp Nou"
+  }
+  ```
+  
+  ## Campos Requeridos
+  - `name`: Nombre del equipo (3-100 caracteres)
+  - `country`: País del equipo (3-50 caracteres)
+  
+  ## Campos Opcionales
+  - `founded`: Año de fundación (1800-2100)
+  - `stadium`: Estadio del equipo (3-100 caracteres)
+  
+  ## Respuesta Exitosa (201)
+  ```json
+  {
+    "id": 1,
+    "name": "Barcelona FC",
+    "country": "España",
+    "founded": 1899,
+    "stadium": "Camp Nou"
+  }
+  ```
+}

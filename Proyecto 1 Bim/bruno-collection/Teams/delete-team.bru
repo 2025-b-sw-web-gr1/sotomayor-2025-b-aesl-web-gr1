@@ -1,0 +1,36 @@
+meta {
+  name: Delete Team
+  type: http
+  seq: 5
+}
+
+delete {
+  url: {{baseUrl}}/teams/1
+  body: none
+  auth: none
+}
+
+params:path {
+  id: 1
+}
+
+docs {
+  # Eliminar Equipo
+  
+  Este endpoint elimina un equipo del sistema.
+  **ADVERTENCIA:** También eliminará todos los jugadores asociados al equipo.
+  
+  ## Parámetros
+  - `id` (path): ID único del equipo a eliminar
+  
+  ## Respuesta Exitosa (204)
+  Sin contenido - El equipo fue eliminado exitosamente.
+  
+  ## Respuesta Error (404)
+  ```json
+  {
+    "code": 404,
+    "message": "Equipo no encontrado"
+  }
+  ```
+}

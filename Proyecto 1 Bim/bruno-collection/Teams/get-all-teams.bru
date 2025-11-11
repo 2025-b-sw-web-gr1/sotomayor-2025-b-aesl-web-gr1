@@ -1,0 +1,37 @@
+meta {
+  name: Get All Teams
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/teams
+  body: none
+  auth: none
+}
+
+docs {
+  # Obtener Todos los Equipos
+  
+  Este endpoint retorna una lista de todos los equipos de fútbol registrados en el sistema.
+  
+  ## Respuesta Exitosa (200)
+  ```json
+  [
+    {
+      "id": 1,
+      "name": "Barcelona FC",
+      "country": "España",
+      "founded": 1899,
+      "stadium": "Camp Nou"
+    },
+    {
+      "id": 2,
+      "name": "Real Madrid",
+      "country": "España",
+      "founded": 1902,
+      "stadium": "Santiago Bernabéu"
+    }
+  ]
+  ```
+}

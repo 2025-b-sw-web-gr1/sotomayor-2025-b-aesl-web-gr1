@@ -1,0 +1,61 @@
+meta {
+  name: Update Player
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{baseUrl}}/players/1
+  body: json
+  auth: none
+}
+
+params:path {
+  id: 1
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "name": "Lionel Messi",
+    "position": "Mediocampista Ofensivo",
+    "number": 10,
+    "age": 37,
+    "teamId": 1
+  }
+}
+
+docs {
+  # Actualizar Jugador Completo
+  
+  Este endpoint actualiza todos los datos de un jugador existente.
+  
+  ## Parámetros
+  - `id` (path): ID único del jugador a actualizar
+  
+  ## Body (JSON)
+  ```json
+  {
+    "name": "Lionel Messi",
+    "position": "Mediocampista Ofensivo",
+    "number": 10,
+    "age": 37,
+    "teamId": 1
+  }
+  ```
+  
+  ## Respuesta Exitosa (200)
+  ```json
+  {
+    "id": 1,
+    "name": "Lionel Messi",
+    "position": "Mediocampista Ofensivo",
+    "number": 10,
+    "age": 37,
+    "teamId": 1
+  }
+  ```
+}

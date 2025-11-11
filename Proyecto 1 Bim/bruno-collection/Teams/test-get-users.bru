@@ -1,0 +1,36 @@
+meta {
+  name: TEST - Get Users (Funciona)
+  type: http
+  seq: 100
+}
+
+get {
+  url: {{baseUrl}}/users
+  body: none
+  auth: none
+}
+
+docs {
+  # 🧪 PETICIÓN DE PRUEBA
+  
+  Esta petición SÍ funciona porque JSONPlaceholder tiene el recurso `/users`.
+  
+  ## Propósito
+  Verificar que la conexión y el ambiente funcionan correctamente.
+  
+  ## Respuesta Esperada
+  Una lista de 10 usuarios con estructura:
+  ```json
+  [
+    {
+      "id": 1,
+      "name": "Leanne Graham",
+      "username": "Bret",
+      "email": "Sincere@april.biz"
+    }
+  ]
+  ```
+  
+  ## ✅ Si esto funciona
+  El problema es que el servidor MockAPI no tiene configurados los recursos /teams y /players.
+}

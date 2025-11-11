@@ -1,0 +1,61 @@
+meta {
+  name: TEST - Update User (PUT)
+  type: http
+  seq: 103
+}
+
+put {
+  url: {{baseUrl}}/users/1
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "id": 1,
+    "name": "Lionel Messi - Actualizado",
+    "username": "messi10",
+    "email": "messi.updated@barcelona.com"
+  }
+}
+
+docs {
+  # 🧪 PRUEBA - Actualizar Usuario (PUT)
+  
+  Esta petición demuestra cómo actualizar un recurso existente.
+  Equivalente a: PUT /players/1
+  
+  ## URL
+  {{baseUrl}}/users/1
+  
+  ## Body JSON
+  ```json
+  {
+    "id": 1,
+    "name": "Lionel Messi - Actualizado",
+    "username": "messi10",
+    "email": "messi.updated@barcelona.com"
+  }
+  ```
+  
+  ## Respuesta Exitosa (200 OK)
+  ```json
+  {
+    "id": 1,
+    "name": "Lionel Messi - Actualizado",
+    "username": "messi10",
+    "email": "messi.updated@barcelona.com"
+  }
+  ```
+  
+  ## ⚠️ Nota
+  JSONPlaceholder simula la actualización pero NO modifica los datos reales.
+  
+  ## ✅ Propósito
+  Demostrar que la petición PUT funciona correctamente.
+  En producción, esto sería: PUT /players/{id}
+}

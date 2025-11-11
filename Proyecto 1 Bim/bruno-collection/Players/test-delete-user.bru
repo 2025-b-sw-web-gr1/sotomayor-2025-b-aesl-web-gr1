@@ -1,0 +1,38 @@
+meta {
+  name: TEST - Delete User (DELETE)
+  type: http
+  seq: 104
+}
+
+delete {
+  url: {{baseUrl}}/users/1
+  body: none
+  auth: none
+}
+
+docs {
+  # 🧪 PRUEBA - Eliminar Usuario (DELETE)
+  
+  Esta petición demuestra cómo eliminar un recurso.
+  Equivalente a: DELETE /players/1
+  
+  ## URL
+  {{baseUrl}}/users/1
+  
+  ## Parámetro Path
+  - id: 1 (puedes cambiar a cualquier ID del 1 al 10)
+  
+  ## Respuesta Exitosa (200 OK)
+  ```json
+  {}
+  ```
+  
+  ## ⚠️ Nota
+  JSONPlaceholder simula la eliminación pero NO borra los datos reales.
+  La respuesta es un objeto vacío {} indicando éxito.
+  En una API real, típicamente retorna 204 No Content sin body.
+  
+  ## ✅ Propósito
+  Demostrar que la petición DELETE funciona correctamente.
+  En producción, esto sería: DELETE /players/{id}
+}

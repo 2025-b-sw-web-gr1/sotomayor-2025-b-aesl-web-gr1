@@ -1,0 +1,63 @@
+meta {
+  name: TEST - Create User (POST)
+  type: http
+  seq: 102
+}
+
+post {
+  url: {{baseUrl}}/users
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "name": "Lionel Messi",
+    "username": "lmessi10",
+    "email": "messi@barcelona.com",
+    "phone": "+34-123-456-789"
+  }
+}
+
+docs {
+  # 🧪 PRUEBA - Crear Usuario (POST)
+  
+  Esta petición demuestra cómo crear un nuevo recurso.
+  Equivalente a: POST /players
+  
+  ## URL
+  {{baseUrl}}/users
+  
+  ## Body JSON
+  ```json
+  {
+    "name": "Lionel Messi",
+    "username": "lmessi10",
+    "email": "messi@barcelona.com",
+    "phone": "+34-123-456-789"
+  }
+  ```
+  
+  ## Respuesta Exitosa (201 Created)
+  ```json
+  {
+    "id": 11,
+    "name": "Lionel Messi",
+    "username": "lmessi10",
+    "email": "messi@barcelona.com",
+    "phone": "+34-123-456-789"
+  }
+  ```
+  
+  ## ⚠️ Nota
+  JSONPlaceholder simula la creación pero NO guarda los datos.
+  El ID retornado es 11 porque ya hay 10 usuarios.
+  
+  ## ✅ Propósito
+  Demostrar que la petición POST funciona correctamente.
+  En producción, esto sería: POST /players
+}

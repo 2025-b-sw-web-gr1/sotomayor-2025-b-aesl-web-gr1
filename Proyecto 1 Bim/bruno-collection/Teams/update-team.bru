@@ -1,0 +1,58 @@
+meta {
+  name: Update Team
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{baseUrl}}/teams/1
+  body: json
+  auth: none
+}
+
+params:path {
+  id: 1
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "name": "FC Barcelona",
+    "country": "España",
+    "founded": 1899,
+    "stadium": "Camp Nou Renovado"
+  }
+}
+
+docs {
+  # Actualizar Equipo Completo
+  
+  Este endpoint actualiza todos los datos de un equipo existente.
+  
+  ## Parámetros
+  - `id` (path): ID único del equipo a actualizar
+  
+  ## Body (JSON)
+  ```json
+  {
+    "name": "FC Barcelona",
+    "country": "España",
+    "founded": 1899,
+    "stadium": "Camp Nou Renovado"
+  }
+  ```
+  
+  ## Respuesta Exitosa (200)
+  ```json
+  {
+    "id": 1,
+    "name": "FC Barcelona",
+    "country": "España",
+    "founded": 1899,
+    "stadium": "Camp Nou Renovado"
+  }
+  ```
+}

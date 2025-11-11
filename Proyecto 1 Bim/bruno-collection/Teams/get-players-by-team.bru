@@ -1,0 +1,47 @@
+meta {
+  name: Get Players By Team
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{baseUrl}}/teams/1/players
+  body: none
+  auth: none
+}
+
+params:path {
+  id: 1
+}
+
+docs {
+  # Obtener Jugadores de un Equipo
+  
+  Este endpoint retorna todos los jugadores pertenecientes a un equipo específico.
+  Representa la relación 1 a muchos: Un equipo tiene muchos jugadores.
+  
+  ## Parámetros
+  - `id` (path): ID único del equipo
+  
+  ## Respuesta Exitosa (200)
+  ```json
+  [
+    {
+      "id": 1,
+      "name": "Lionel Messi",
+      "position": "Delantero",
+      "number": 10,
+      "age": 36,
+      "teamId": 1
+    },
+    {
+      "id": 2,
+      "name": "Gerard Piqué",
+      "position": "Defensa",
+      "number": 3,
+      "age": 36,
+      "teamId": 1
+    }
+  ]
+  ```
+}

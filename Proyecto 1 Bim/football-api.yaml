@@ -1,0 +1,637 @@
+openapi: 3.0.0
+info:
+  title: API de Equipos y Jugadores de Fútbol
+  description: |
+    API RESTful para gestionar equipos de fútbol y sus jugadores.
+    Relación 1 a muchos: Un equipo tiene muchos jugadores.
+  version: 1.0.0
+  contact:
+    name: Equipo de Desarrollo
+    email: soporte@ejemplo.com
+
+servers:
+  - url: https://api.ejemplo.com/v1
+    description: Servidor de Producción
+  - url: http://localhost:3000/v1
+    description: Servidor de Desarrollo
+
+tags:
+  - name: Teams
+    description: Operaciones relacionadas con equipos de fútbol
+  - name: Players
+    description: Operaciones relacionadas con jugadores
+
+paths:
+  /teams:
+    get:
+      tags:
+        - Teams
+      summary: Obtener todos los equipos
+      description: Retorna una lista de todos los equipos de fútbol registrados
+      responses:
+        '200':
+          description: Lista de equipos obtenida exitosamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Team'
+              example:
+                - id: 1
+                  name: "Barcelona FC"
+                  country: "España"
+                  founded: 1899
+                  stadium: "Camp Nou"
+                - id: 2
+                  name: "Real Madrid"
+                  country: "España"
+                  founded: 1902
+                  stadium: "Santiago Bernabéu"
+        '500':
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    post:
+      tags:
+        - Teams
+      summary: Crear nuevo equipo
+      description: Crea un nuevo equipo de fútbol en el sistema
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TeamInput'
+            example:
+              name: "Barcelona FC"
+              country: "España"
+              founded: 1899
+              stadium: "Camp Nou"
+      responses:
+        '201':
+          description: Equipo creado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Team'
+              example:
+                id: 1
+                name: "Barcelona FC"
+                country: "España"
+                founded: 1899
+                stadium: "Camp Nou"
+        '400':
+          description: Datos de entrada inválidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /teams/{id}:
+    get:
+      tags:
+        - Teams
+      summary: Obtener equipo por ID
+      description: Retorna la información detallada de un equipo específico
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID único del equipo
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: Equipo encontrado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Team'
+              example:
+                id: 1
+                name: "Barcelona FC"
+                country: "España"
+                founded: 1899
+                stadium: "Camp Nou"
+        '404':
+          description: Equipo no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: 404
+                message: "Equipo con ID 1 no encontrado"
+        '500':
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    put:
+      tags:
+        - Teams
+      summary: Actualizar equipo completo
+      description: Actualiza todos los datos de un equipo existente
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID único del equipo a actualizar
+          schema:
+            type: integer
+            example: 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TeamInput'
+            example:
+              name: "FC Barcelona"
+              country: "España"
+              founded: 1899
+              stadium: "Camp Nou Renovado"
+      responses:
+        '200':
+          description: Equipo actualizado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Team'
+              example:
+                id: 1
+                name: "FC Barcelona"
+                country: "España"
+                founded: 1899
+                stadium: "Camp Nou Renovado"
+        '400':
+          description: Datos de entrada inválidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Equipo no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    delete:
+      tags:
+        - Teams
+      summary: Eliminar equipo
+      description: Elimina un equipo del sistema (también elimina sus jugadores asociados)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID único del equipo a eliminar
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '204':
+          description: Equipo eliminado exitosamente
+        '404':
+          description: Equipo no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /teams/{id}/players:
+    get:
+      tags:
+        - Teams
+        - Players
+      summary: Obtener jugadores de un equipo
+      description: Retorna todos los jugadores pertenecientes a un equipo específico
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID único del equipo
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: Lista de jugadores del equipo obtenida exitosamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Player'
+              example:
+                - id: 1
+                  name: "Lionel Messi"
+                  position: "Delantero"
+                  number: 10
+                  age: 36
+                  teamId: 1
+                - id: 2
+                  name: "Gerard Piqué"
+                  position: "Defensa"
+                  number: 3
+                  age: 36
+                  teamId: 1
+        '404':
+          description: Equipo no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /players:
+    get:
+      tags:
+        - Players
+      summary: Obtener todos los jugadores
+      description: Retorna una lista de todos los jugadores registrados en el sistema
+      responses:
+        '200':
+          description: Lista de jugadores obtenida exitosamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Player'
+              example:
+                - id: 1
+                  name: "Lionel Messi"
+                  position: "Delantero"
+                  number: 10
+                  age: 36
+                  teamId: 1
+                - id: 2
+                  name: "Cristiano Ronaldo"
+                  position: "Delantero"
+                  number: 7
+                  age: 38
+                  teamId: 2
+        '500':
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    post:
+      tags:
+        - Players
+      summary: Crear nuevo jugador
+      description: Crea un nuevo jugador y lo asocia a un equipo
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlayerInput'
+            example:
+              name: "Lionel Messi"
+              position: "Delantero"
+              number: 10
+              age: 36
+              teamId: 1
+      responses:
+        '201':
+          description: Jugador creado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Player'
+              example:
+                id: 1
+                name: "Lionel Messi"
+                position: "Delantero"
+                number: 10
+                age: 36
+                teamId: 1
+        '400':
+          description: Datos de entrada inválidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Equipo no encontrado (teamId inválido)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /players/{id}:
+    get:
+      tags:
+        - Players
+      summary: Obtener jugador por ID
+      description: Retorna la información detallada de un jugador específico
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID único del jugador
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: Jugador encontrado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Player'
+              example:
+                id: 1
+                name: "Lionel Messi"
+                position: "Delantero"
+                number: 10
+                age: 36
+                teamId: 1
+        '404':
+          description: Jugador no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: 404
+                message: "Jugador con ID 1 no encontrado"
+        '500':
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    put:
+      tags:
+        - Players
+      summary: Actualizar jugador completo
+      description: Actualiza todos los datos de un jugador existente
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID único del jugador a actualizar
+          schema:
+            type: integer
+            example: 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlayerInput'
+            example:
+              name: "Lionel Messi"
+              position: "Mediocampista Ofensivo"
+              number: 10
+              age: 37
+              teamId: 1
+      responses:
+        '200':
+          description: Jugador actualizado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Player'
+              example:
+                id: 1
+                name: "Lionel Messi"
+                position: "Mediocampista Ofensivo"
+                number: 10
+                age: 37
+                teamId: 1
+        '400':
+          description: Datos de entrada inválidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Jugador no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    delete:
+      tags:
+        - Players
+      summary: Eliminar jugador
+      description: Elimina un jugador del sistema
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID único del jugador a eliminar
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '204':
+          description: Jugador eliminado exitosamente
+        '404':
+          description: Jugador no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  schemas:
+    Team:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: ID único del equipo
+          example: 1
+        name:
+          type: string
+          description: Nombre del equipo
+          example: "Barcelona FC"
+        country:
+          type: string
+          description: País del equipo
+          example: "España"
+        founded:
+          type: integer
+          description: Año de fundación del equipo
+          example: 1899
+        stadium:
+          type: string
+          description: Estadio del equipo
+          example: "Camp Nou"
+
+    TeamInput:
+      type: object
+      required:
+        - name
+        - country
+      properties:
+        name:
+          type: string
+          description: Nombre del equipo
+          minLength: 3
+          maxLength: 100
+          example: "Barcelona FC"
+        country:
+          type: string
+          description: País del equipo
+          minLength: 3
+          maxLength: 50
+          example: "España"
+        founded:
+          type: integer
+          description: Año de fundación del equipo
+          minimum: 1800
+          maximum: 2100
+          example: 1899
+        stadium:
+          type: string
+          description: Estadio del equipo
+          minLength: 3
+          maxLength: 100
+          example: "Camp Nou"
+
+    Player:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: ID único del jugador
+          example: 1
+        name:
+          type: string
+          description: Nombre completo del jugador
+          example: "Lionel Messi"
+        position:
+          type: string
+          description: Posición del jugador en el campo
+          enum:
+            - Portero
+            - Defensa
+            - Mediocampista
+            - Delantero
+          example: "Delantero"
+        number:
+          type: integer
+          description: Número de camiseta del jugador
+          example: 10
+        age:
+          type: integer
+          description: Edad del jugador
+          example: 36
+        teamId:
+          type: integer
+          description: ID del equipo al que pertenece el jugador
+          example: 1
+
+    PlayerInput:
+      type: object
+      required:
+        - name
+        - position
+        - teamId
+      properties:
+        name:
+          type: string
+          description: Nombre completo del jugador
+          minLength: 3
+          maxLength: 100
+          example: "Lionel Messi"
+        position:
+          type: string
+          description: Posición del jugador en el campo
+          enum:
+            - Portero
+            - Defensa
+            - Mediocampista
+            - Delantero
+          example: "Delantero"
+        number:
+          type: integer
+          description: Número de camiseta del jugador
+          minimum: 1
+          maximum: 99
+          example: 10
+        age:
+          type: integer
+          description: Edad del jugador
+          minimum: 16
+          maximum: 45
+          example: 36
+        teamId:
+          type: integer
+          description: ID del equipo al que pertenece el jugador
+          example: 1
+
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: Código de error HTTP
+          example: 404
+        message:
+          type: string
+          description: Mensaje descriptivo del error
+          example: "Recurso no encontrado"
+        details:
+          type: string
+          description: Detalles adicionales del error
+          example: "El equipo con ID 1 no existe en la base de datos"

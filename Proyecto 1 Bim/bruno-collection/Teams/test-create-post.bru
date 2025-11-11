@@ -1,0 +1,46 @@
+meta {
+  name: TEST - Create Post (Funciona)
+  type: http
+  seq: 101
+}
+
+post {
+  url: {{baseUrl}}/posts
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "title": "Barcelona FC",
+    "body": "Equipo de prueba",
+    "userId": 1
+  }
+}
+
+docs {
+  # 🧪 PETICIÓN DE PRUEBA - CREAR POST
+  
+  Esta petición SÍ funciona porque JSONPlaceholder tiene el recurso `/posts`.
+  
+  ## Propósito
+  Verificar que puedes hacer peticiones POST exitosamente.
+  
+  ## Respuesta Esperada
+  ```json
+  {
+    "id": 101,
+    "title": "Barcelona FC",
+    "body": "Equipo de prueba",
+    "userId": 1
+  }
+  ```
+  
+  ## ✅ Nota
+  JSONPlaceholder es un servidor de prueba "fake". Simula crear el recurso pero no lo guarda permanentemente.
+  Esto es normal y esperado para servidores de demostración.
+}

@@ -1,0 +1,42 @@
+meta {
+  name: TEST - Get User By ID
+  type: http
+  seq: 101
+}
+
+get {
+  url: {{baseUrl}}/users/1
+  body: none
+  auth: none
+}
+
+docs {
+  # 🧪 PRUEBA - Obtener Usuario por ID
+  
+  Esta petición demuestra cómo obtener un recurso específico por ID.
+  Equivalente a: GET /players/1
+  
+  ## URL
+  {{baseUrl}}/users/1
+  
+  ## Parámetro Path
+  - id: 1 (puedes cambiar a 2, 3, 4... hasta 10)
+  
+  ## Respuesta Exitosa (200)
+  ```json
+  {
+    "id": 1,
+    "name": "Leanne Graham",
+    "username": "Bret",
+    "email": "Sincere@april.biz",
+    "address": {
+      "street": "Kulas Light",
+      "city": "Gwenborough"
+    }
+  }
+  ```
+  
+  ## ✅ Propósito
+  Demostrar que la petición GET con parámetro ID funciona.
+  En producción, esto sería: GET /players/{id}
+}
