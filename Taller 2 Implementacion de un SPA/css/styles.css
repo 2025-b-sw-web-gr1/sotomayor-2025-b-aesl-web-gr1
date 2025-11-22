@@ -1,22 +1,33 @@
-/* ===== VARIABLES CSS - TEMA OSCURO ===== */
+/* ===== VARIABLES CSS - TEMA TÁCTICO MILITAR ===== */
 :root {
-    --primary-color: #6366f1;
-    --primary-dark: #4f46e5;
-    --secondary-color: #1f2937;
-    --accent-color: #06b6d4;
-    --danger-color: #ef4444;
-    --warning-color: #f59e0b;
-    --success-color: #10b981;
+    /* Paleta Militar */
+    --primary-color: #2d5016;          /* Verde militar oscuro */
+    --primary-dark: #1a3009;           /* Verde oliva muy oscuro */
+    --secondary-color: #1f2937;        /* Gris carbón */
+    --accent-color: #d4af37;           /* Dorado militar */
+    --danger-color: #8b0000;           /* Rojo oscuro */
+    --warning-color: #ff8c00;          /* Naranja oscuro */
+    --success-color: #228b22;          /* Verde bosque */
+    
+    /* Colores de texto */
     --text-primary: #f9fafb;
     --text-secondary: #d1d5db;
     --text-light: #9ca3af;
-    --border-color: #374151;
-    --bg-light: #111827;
-    --bg-white: #1f2937;
-    --bg-darker: #0f172a;
-    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
-    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.4), 0 2px 4px -2px rgb(0 0 0 / 0.3);
-    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.5), 0 4px 6px -4px rgb(0 0 0 / 0.4);
+    --text-military: #d4af37;
+    
+    /* Fondos */
+    --border-color: #3d4a2e;
+    --bg-light: #0f1419;               /* Negro carbón */
+    --bg-white: #1a1f1a;               /* Verde muy oscuro */
+    --bg-darker: #0a0d0a;              /* Negro verdoso */
+    --bg-military: #2d3a1f;            /* Verde militar medio */
+    
+    /* Sombras */
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.5);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.6), 0 2px 4px -2px rgb(0 0 0 / 0.4);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.7), 0 4px 6px -4px rgb(0 0 0 / 0.5);
+    --shadow-glow: 0 0 20px rgba(212, 175, 55, 0.3);
+    
     --border-radius: 8px;
     --border-radius-lg: 12px;
     --transition: all 0.3s ease;
@@ -43,15 +54,16 @@ body {
     padding: 0 1rem;
 }
 
-/* ===== HEADER ===== */
+/* ===== HEADER - ESTILO MILITAR ===== */
 .app-header {
     background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
-    color: white;
+    color: var(--text-military);
     padding: 1.5rem 0;
-    box-shadow: var(--shadow-md);
+    box-shadow: var(--shadow-md), inset 0 1px 0 rgba(212, 175, 55, 0.2);
     position: sticky;
     top: 0;
     z-index: 100;
+    border-bottom: 2px solid var(--accent-color);
 }
 
 .app-header .container {
@@ -68,6 +80,10 @@ body {
     display: flex;
     align-items: center;
     gap: 0.75rem;
+    color: var(--text-military);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    font-family: 'Courier New', monospace;
+    letter-spacing: 1px;
 }
 
 .header-stats {
@@ -80,10 +96,13 @@ body {
     align-items: center;
     gap: 0.5rem;
     font-size: 0.9rem;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(212, 175, 55, 0.15);
     padding: 0.5rem 1rem;
     border-radius: var(--border-radius);
     backdrop-filter: blur(10px);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    color: var(--text-primary);
+    font-family: 'Courier New', monospace;
 }
 
 /* ===== MAIN CONTENT ===== */
@@ -793,6 +812,258 @@ select option {
     
     .task-title {
         font-size: 1rem;
+    }
+}
+
+/* ===== ESTILOS ESPECÍFICOS PARA TÁCTICAS MILITARES ===== */
+
+/* Contenedor de tácticas */
+.tactics-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+/* Tarjeta de táctica */
+.tactic-card {
+    background: var(--bg-military);
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+    padding: 1.5rem;
+    transition: var(--transition);
+    box-shadow: var(--shadow-md);
+    position: relative;
+    overflow: hidden;
+}
+
+.tactic-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--accent-color);
+    opacity: 0;
+    transition: var(--transition);
+}
+
+.tactic-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg), var(--shadow-glow);
+    border-color: var(--accent-color);
+}
+
+.tactic-card:hover::before {
+    opacity: 1;
+}
+
+/* Estilos por tipo de táctica */
+.tactic-card.type-ofensiva { border-left: 4px solid #dc2626; }
+.tactic-card.type-defensiva { border-left: 4px solid #2563eb; }
+.tactic-card.type-maniobra { border-left: 4px solid #9333ea; }
+.tactic-card.type-asedio { border-left: 4px solid #ea580c; }
+.tactic-card.type-guerrilla { border-left: 4px solid #16a34a; }
+.tactic-card.type-naval { border-left: 4px solid #0891b2; }
+
+/* Header de táctica */
+.tactic-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.tactic-name {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-military);
+    margin: 0;
+    font-family: 'Courier New', monospace;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.tactic-importance {
+    font-size: 1rem;
+    white-space: nowrap;
+    filter: drop-shadow(0 0 4px rgba(255, 215, 0, 0.5));
+}
+
+/* Descripción */
+.tactic-description {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    font-style: italic;
+}
+
+/* Metadata */
+.tactic-meta {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: var(--border-radius);
+}
+
+.meta-item {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.meta-item strong {
+    color: var(--text-military);
+    font-weight: 600;
+}
+
+/* Badges de efectividad */
+.eff-badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--border-radius);
+    font-size: 0.85rem;
+    font-weight: 600;
+    font-family: 'Courier New', monospace;
+}
+
+.eff-badge.high {
+    background: rgba(34, 139, 34, 0.2);
+    color: #4ade80;
+    border: 1px solid #4ade80;
+}
+
+.eff-badge.medium {
+    background: rgba(255, 140, 0, 0.2);
+    color: #fbbf24;
+    border: 1px solid #fbbf24;
+}
+
+.eff-badge.low {
+    background: rgba(139, 0, 0, 0.2);
+    color: #f87171;
+    border: 1px solid #f87171;
+}
+
+/* Información histórica */
+.tactic-historical {
+    background: rgba(212, 175, 55, 0.05);
+    padding: 0.75rem;
+    border-radius: var(--border-radius);
+    border-left: 3px solid var(--accent-color);
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+}
+
+.tactic-historical div {
+    margin: 0.25rem 0;
+    color: var(--text-secondary);
+}
+
+.tactic-historical strong {
+    color: var(--text-military);
+}
+
+/* Botones de acción de táctica */
+.tactic-actions {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.tactic-btn {
+    flex: 1;
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--border-color);
+    background: rgba(0, 0, 0, 0.3);
+    color: var(--text-primary);
+    border-radius: var(--border-radius);
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-family: 'Courier New', monospace;
+}
+
+.tactic-btn.edit {
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+}
+
+.tactic-btn.edit:hover {
+    background: var(--accent-color);
+    color: var(--bg-darker);
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+}
+
+.tactic-btn.delete {
+    border-color: var(--danger-color);
+    color: #ff6b6b;
+}
+
+.tactic-btn.delete:hover {
+    background: var(--danger-color);
+    color: white;
+    box-shadow: 0 0 15px rgba(139, 0, 0, 0.5);
+}
+
+/* Filtros de periodo */
+.period-filters {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+}
+
+.period-filter {
+    padding: 0.5rem 1rem;
+    border: 2px solid var(--border-color);
+    background: var(--bg-white);
+    color: var(--text-secondary);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: var(--transition);
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.period-filter:hover {
+    background: var(--bg-military);
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+}
+
+.period-filter.active {
+    background: var(--accent-color);
+    color: var(--bg-darker);
+    border-color: var(--accent-color);
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+}
+
+/* Ajustes responsive para tácticas */
+@media (max-width: 768px) {
+    .tactics-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .tactic-header {
+        flex-direction: column;
+    }
+    
+    .tactic-meta {
+        grid-template-columns: 1fr;
     }
 }
 

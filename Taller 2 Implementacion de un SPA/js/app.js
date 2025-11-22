@@ -1,49 +1,74 @@
 /**
- * TaskManager SPA - Aplicación de Gestión de Tareas Personales
- * Implementa el patrón MVC y arquitectura de SPA
+ * Tactical Warfare System - Sistema de Gestión de Tácticas Militares
+ * Simulación de arquitectura JSP/Servlet en Frontend
+ * 
+ * SIMULACIÓN DE ARQUITECTURA JAVA EE:
+ * Este código simula cómo funcionaría una aplicación JSP/Servlet
+ * 
+ * En un entorno Java real:
+ * - Esta clase sería un Servlet (@WebServlet)
+ * - Los métodos serían doGet(), doPost()
+ * - El localStorage sería una base de datos (JPA/Hibernate)
+ * - Los datos se pasarían con request.setAttribute()
+ * - La vista sería un archivo .jsp con JSTL y EL
  */
 
-class TaskManager {
+class TacticalWarfareManager {
     constructor() {
-        // Estado de la aplicación
-        this.tasks = [];
+        // Simula HttpSession attributes
+        this.tactics = [];
         this.currentFilter = 'all';
-        this.currentPriorityFilter = null;
+        this.currentPeriodFilter = null;
         this.currentSort = 'date-desc';
         this.searchQuery = '';
-        this.editingTaskId = null;
-        this.deletingTaskId = null;
+        this.editingTacticId = null;
+        this.deletingTacticId = null;
 
-        // Referencias a elementos DOM
-        this.elements = {
-            // Formulario principal
-            taskForm: document.getElementById('task-form'),
-            taskTitle: document.getElementById('task-title'),
-            taskDescription: document.getElementById('task-description'),
-            taskPriority: document.getElementById('task-priority'),
-            taskDueDate: document.getElementById('task-due-date'),
+        // Simula request.getAttribute() - Referencias DOM
+        this.elements = this.initializeElements();
+        
+        // Simula Servlet.init()
+        this.init();
+    }
 
-            // Filtros y búsqueda
+    initializeElements() {
+        return {
+            // Formulario
+            tacticalForm: document.getElementById('tactical-form'),
+            tacticName: document.getElementById('tactic-name'),
+            tacticDescription: document.getElementById('tactic-description'),
+            tacticType: document.getElementById('tactic-type'),
+            tacticImportance: document.getElementById('tactic-importance'),
+            tacticPeriod: document.getElementById('tactic-period'),
+            tacticEffectiveness: document.getElementById('tactic-effectiveness'),
+            tacticCommander: document.getElementById('tactic-commander'),
+            tacticBattle: document.getElementById('tactic-battle'),
+
+            // Filtros
             searchInput: document.getElementById('search-input'),
             filterButtons: document.querySelectorAll('.filter-btn'),
-            priorityFilters: document.querySelectorAll('.priority-filter'),
+            periodFilters: document.querySelectorAll('.period-filter'),
             sortSelect: document.getElementById('sort-select'),
 
             // Contenedores
-            tasksContainer: document.getElementById('tasks-container'),
+            tacticsContainer: document.getElementById('tactics-container'),
             emptyState: document.getElementById('empty-state'),
 
-            // Estadísticas
-            totalTasks: document.getElementById('total-tasks'),
-            completedTasks: document.getElementById('completed-tasks'),
+            // Stats
+            totalTactics: document.getElementById('total-tactics'),
+            highImportanceTactics: document.getElementById('high-importance-tactics'),
 
             // Modales
             editModal: document.getElementById('edit-modal'),
-            editForm: document.getElementById('edit-task-form'),
-            editTitle: document.getElementById('edit-task-title'),
-            editDescription: document.getElementById('edit-task-description'),
-            editPriority: document.getElementById('edit-task-priority'),
-            editDueDate: document.getElementById('edit-task-due-date'),
+            editForm: document.getElementById('edit-tactical-form'),
+            editName: document.getElementById('edit-tactic-name'),
+            editDescription: document.getElementById('edit-tactic-description'),
+            editType: document.getElementById('edit-tactic-type'),
+            editImportance: document.getElementById('edit-tactic-importance'),
+            editPeriod: document.getElementById('edit-tactic-period'),
+            editEffectiveness: document.getElementById('edit-tactic-effectiveness'),
+            editCommander: document.getElementById('edit-tactic-commander'),
+            editBattle: document.getElementById('edit-tactic-battle'),
             closeEditModal: document.getElementById('close-edit-modal'),
             cancelEdit: document.getElementById('cancel-edit'),
 
@@ -52,512 +77,365 @@ class TaskManager {
             cancelDelete: document.getElementById('cancel-delete'),
             confirmDelete: document.getElementById('confirm-delete'),
 
-            // Notificaciones
             notificationsContainer: document.getElementById('notifications-container')
         };
-
-        // Inicializar la aplicación
-        this.init();
     }
 
-    /**
-     * Inicializa la aplicación
-     */
+    // Simula: public void init() throws ServletException
     init() {
-        this.loadTasksFromStorage();
+        this.loadTacticsFromStorage();
         this.bindEvents();
-        this.renderTasks();
+        this.loadSampleData(); // Datos de ejemplo
+        this.renderTactics();
         this.updateStats();
-        this.showNotification('¡Bienvenido a TaskManager!', 'La aplicación está lista para usar.', 'success');
+        this.showNotification(
+            'Sistema Táctico Iniciado', 
+            'Tactical Warfare System listo. Base de datos de tácticas militares cargada.', 
+            'success'
+        );
     }
 
-    /**
-     * Vincula todos los eventos de la aplicación
-     */
+    // Simula: protected void doPost(HttpServletRequest req, HttpServletResponse res)
     bindEvents() {
-        // Formulario principal
-        this.elements.taskForm.addEventListener('submit', (e) => this.handleAddTask(e));
-
-        // Búsqueda
-        this.elements.searchInput.addEventListener('input', (e) => this.handleSearch(e));
-
-        // Filtros de estado
+        this.elements.tacticalForm?.addEventListener('submit', (e) => this.handleAddTactic(e));
+        this.elements.searchInput?.addEventListener('input', (e) => this.handleSearch(e));
+        
         this.elements.filterButtons.forEach(btn => {
-            btn.addEventListener('click', (e) => this.handleStatusFilter(e));
+            btn.addEventListener('click', (e) => this.handleTypeFilter(e));
         });
-
-        // Filtros de prioridad
-        this.elements.priorityFilters.forEach(btn => {
-            btn.addEventListener('click', (e) => this.handlePriorityFilter(e));
+        
+        this.elements.periodFilters.forEach(btn => {
+            btn.addEventListener('click', (e) => this.handlePeriodFilter(e));
         });
+        
+        this.elements.sortSelect?.addEventListener('change', (e) => this.handleSort(e));
+        this.elements.editForm?.addEventListener('submit', (e) => this.handleEditTactic(e));
+        this.elements.closeEditModal?.addEventListener('click', () => this.closeEditModal());
+        this.elements.cancelEdit?.addEventListener('click', () => this.closeEditModal());
+        this.elements.closeDeleteModal?.addEventListener('click', () => this.closeDeleteModal());
+        this.elements.cancelDelete?.addEventListener('click', () => this.closeDeleteModal());
+        this.elements.confirmDelete?.addEventListener('click', () => this.handleDeleteTactic());
 
-        // Ordenamiento
-        this.elements.sortSelect.addEventListener('change', (e) => this.handleSort(e));
-
-        // Modal de edición
-        this.elements.editForm.addEventListener('submit', (e) => this.handleEditTask(e));
-        this.elements.closeEditModal.addEventListener('click', () => this.closeEditModal());
-        this.elements.cancelEdit.addEventListener('click', () => this.closeEditModal());
-
-        // Modal de eliminación
-        this.elements.closeDeleteModal.addEventListener('click', () => this.closeDeleteModal());
-        this.elements.cancelDelete.addEventListener('click', () => this.closeDeleteModal());
-        this.elements.confirmDelete.addEventListener('click', () => this.handleDeleteTask());
-
-        // Cerrar modales al hacer clic fuera
         window.addEventListener('click', (e) => {
-            if (e.target === this.elements.editModal) {
+            if (e.target === this.elements.editModal) this.closeEditModal();
+            if (e.target === this.elements.deleteModal) this.closeDeleteModal();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
                 this.closeEditModal();
-            }
-            if (e.target === this.elements.deleteModal) {
                 this.closeDeleteModal();
             }
         });
-
-        // Teclado shortcuts
-        document.addEventListener('keydown', (e) => this.handleKeyboardShortcuts(e));
     }
 
-    /**
-     * Maneja atajos de teclado
-     */
-    handleKeyboardShortcuts(e) {
-        // Escape para cerrar modales
-        if (e.key === 'Escape') {
-            this.closeEditModal();
-            this.closeDeleteModal();
-        }
-
-        // Ctrl/Cmd + N para nueva tarea
-        if ((e.ctrlKey || e.metaKey) && e.key === 'n') {
-            e.preventDefault();
-            this.elements.taskTitle.focus();
-        }
-
-        // Ctrl/Cmd + F para búsqueda
-        if ((e.ctrlKey || e.metaKey) && e.key === 'f') {
-            e.preventDefault();
-            this.elements.searchInput.focus();
-        }
-    }
-
-    /**
-     * Genera un ID único para las tareas
-     */
     generateId() {
         return Date.now().toString(36) + Math.random().toString(36).substr(2);
     }
 
-    /**
-     * Maneja la adición de nuevas tareas
-     */
-    handleAddTask(e) {
+    // Simula: @PostMapping("/tactical/add")
+    handleAddTactic(e) {
         e.preventDefault();
 
-        const title = this.elements.taskTitle.value.trim();
-        const description = this.elements.taskDescription.value.trim();
-        const priority = this.elements.taskPriority.value;
-        const dueDate = this.elements.taskDueDate.value;
+        const tacticData = {
+            id: this.generateId(),
+            nombre: this.elements.tacticName.value.trim(),
+            descripcion: this.elements.tacticDescription.value.trim(),
+            tipo: this.elements.tacticType.value,
+            importancia: parseInt(this.elements.tacticImportance.value),
+            periodo: this.elements.tacticPeriod.value,
+            efectividad: this.elements.tacticEffectiveness.value,
+            comandante: this.elements.tacticCommander.value.trim(),
+            batalla: this.elements.tacticBattle.value.trim(),
+            creadaEn: new Date().toISOString()
+        };
 
-        if (!title || !priority) {
-            this.showNotification('Error', 'Por favor completa todos los campos requeridos.', 'error');
+        if (!tacticData.nombre || !tacticData.tipo || !tacticData.periodo) {
+            this.showNotification('Error de Validación', 'Complete todos los campos requeridos.', 'error');
             return;
         }
 
-        const newTask = {
-            id: this.generateId(),
-            title,
-            description,
-            priority,
-            dueDate: dueDate || null,
-            completed: false,
-            createdAt: new Date().toISOString(),
-            completedAt: null
-        };
-
-        this.tasks.unshift(newTask);
-        this.saveTasksToStorage();
-        this.renderTasks();
+        this.tactics.unshift(tacticData);
+        this.saveTacticsToStorage();
+        this.renderTactics();
         this.updateStats();
+        this.elements.tacticalForm.reset();
         
-        // Limpiar formulario
-        this.elements.taskForm.reset();
-        
-        this.showNotification('¡Tarea creada!', `"${title}" ha sido agregada exitosamente.`, 'success');
+        this.showNotification(
+            'Táctica Registrada', 
+            `"${tacticData.nombre}" agregada al catálogo militar.`, 
+            'success'
+        );
     }
 
-    /**
-     * Maneja la búsqueda de tareas
-     */
     handleSearch(e) {
         this.searchQuery = e.target.value.toLowerCase().trim();
-        this.renderTasks();
+        this.renderTactics();
     }
 
-    /**
-     * Maneja los filtros de estado
-     */
-    handleStatusFilter(e) {
-        // Remover clase active de todos los botones
+    handleTypeFilter(e) {
         this.elements.filterButtons.forEach(btn => btn.classList.remove('active'));
-        
-        // Agregar clase active al botón seleccionado
         e.target.classList.add('active');
-        
         this.currentFilter = e.target.dataset.filter;
-        this.renderTasks();
+        this.renderTactics();
     }
 
-    /**
-     * Maneja los filtros de prioridad
-     */
-    handlePriorityFilter(e) {
-        const priority = e.target.dataset.priority;
+    handlePeriodFilter(e) {
+        const period = e.target.dataset.period;
         
-        // Toggle filter
-        if (this.currentPriorityFilter === priority) {
-            this.currentPriorityFilter = null;
+        if (this.currentPeriodFilter === period) {
+            this.currentPeriodFilter = null;
             e.target.classList.remove('active');
         } else {
-            // Remover active de otros filtros de prioridad
-            this.elements.priorityFilters.forEach(btn => btn.classList.remove('active'));
-            
-            this.currentPriorityFilter = priority;
+            this.elements.periodFilters.forEach(btn => btn.classList.remove('active'));
+            this.currentPeriodFilter = period;
             e.target.classList.add('active');
         }
         
-        this.renderTasks();
+        this.renderTactics();
     }
 
-    /**
-     * Maneja el ordenamiento de tareas
-     */
     handleSort(e) {
         this.currentSort = e.target.value;
-        this.renderTasks();
+        this.renderTactics();
     }
 
-    /**
-     * Completa o marca como pendiente una tarea
-     */
-    toggleTaskCompletion(taskId) {
-        const task = this.tasks.find(t => t.id === taskId);
-        if (task) {
-            task.completed = !task.completed;
-            task.completedAt = task.completed ? new Date().toISOString() : null;
-            
-            this.saveTasksToStorage();
-            this.renderTasks();
-            this.updateStats();
-            
-            const action = task.completed ? 'completada' : 'marcada como pendiente';
-            this.showNotification('Estado actualizado', `La tarea "${task.title}" ha sido ${action}.`, 'success');
-        }
-    }
+    // Simula: SELECT * FROM tacticas WHERE ... (JPA Query)
+    getFilteredTactics() {
+        let filtered = [...this.tactics];
 
-    /**
-     * Abre el modal de edición con los datos de la tarea
-     */
-    openEditModal(taskId) {
-        const task = this.tasks.find(t => t.id === taskId);
-        if (!task) return;
-
-        this.editingTaskId = taskId;
-        
-        this.elements.editTitle.value = task.title;
-        this.elements.editDescription.value = task.description || '';
-        this.elements.editPriority.value = task.priority;
-        this.elements.editDueDate.value = task.dueDate || '';
-        
-        this.elements.editModal.classList.add('show');
-        this.elements.editTitle.focus();
-    }
-
-    /**
-     * Cierra el modal de edición
-     */
-    closeEditModal() {
-        this.elements.editModal.classList.remove('show');
-        this.editingTaskId = null;
-        this.elements.editForm.reset();
-    }
-
-    /**
-     * Maneja la edición de tareas
-     */
-    handleEditTask(e) {
-        e.preventDefault();
-        
-        if (!this.editingTaskId) return;
-
-        const task = this.tasks.find(t => t.id === this.editingTaskId);
-        if (!task) return;
-
-        const title = this.elements.editTitle.value.trim();
-        const description = this.elements.editDescription.value.trim();
-        const priority = this.elements.editPriority.value;
-        const dueDate = this.elements.editDueDate.value;
-
-        if (!title || !priority) {
-            this.showNotification('Error', 'Por favor completa todos los campos requeridos.', 'error');
-            return;
+        // Filtro por tipo
+        if (this.currentFilter !== 'all') {
+            filtered = filtered.filter(t => t.tipo === this.currentFilter);
         }
 
-        task.title = title;
-        task.description = description;
-        task.priority = priority;
-        task.dueDate = dueDate || null;
-        task.updatedAt = new Date().toISOString();
-
-        this.saveTasksToStorage();
-        this.renderTasks();
-        this.closeEditModal();
-        
-        this.showNotification('¡Tarea actualizada!', `"${title}" ha sido modificada exitosamente.`, 'success');
-    }
-
-    /**
-     * Abre el modal de confirmación de eliminación
-     */
-    openDeleteModal(taskId) {
-        this.deletingTaskId = taskId;
-        this.elements.deleteModal.classList.add('show');
-    }
-
-    /**
-     * Cierra el modal de eliminación
-     */
-    closeDeleteModal() {
-        this.elements.deleteModal.classList.remove('show');
-        this.deletingTaskId = null;
-    }
-
-    /**
-     * Maneja la eliminación de tareas
-     */
-    handleDeleteTask() {
-        if (!this.deletingTaskId) return;
-
-        const taskIndex = this.tasks.findIndex(t => t.id === this.deletingTaskId);
-        if (taskIndex === -1) return;
-
-        const task = this.tasks[taskIndex];
-        this.tasks.splice(taskIndex, 1);
-        
-        this.saveTasksToStorage();
-        this.renderTasks();
-        this.updateStats();
-        this.closeDeleteModal();
-        
-        this.showNotification('Tarea eliminada', `"${task.title}" ha sido eliminada permanentemente.`, 'warning');
-    }
-
-    /**
-     * Filtra las tareas según los criterios actuales
-     */
-    getFilteredTasks() {
-        let filteredTasks = [...this.tasks];
-
-        // Filtro por estado
-        if (this.currentFilter === 'completed') {
-            filteredTasks = filteredTasks.filter(task => task.completed);
-        } else if (this.currentFilter === 'pending') {
-            filteredTasks = filteredTasks.filter(task => !task.completed);
+        // Filtro por periodo
+        if (this.currentPeriodFilter) {
+            filtered = filtered.filter(t => t.periodo === this.currentPeriodFilter);
         }
 
-        // Filtro por prioridad
-        if (this.currentPriorityFilter) {
-            filteredTasks = filteredTasks.filter(task => task.priority === this.currentPriorityFilter);
-        }
-
-        // Filtro por búsqueda
+        // Búsqueda
         if (this.searchQuery) {
-            filteredTasks = filteredTasks.filter(task => 
-                task.title.toLowerCase().includes(this.searchQuery) ||
-                (task.description && task.description.toLowerCase().includes(this.searchQuery))
+            filtered = filtered.filter(t => 
+                t.nombre.toLowerCase().includes(this.searchQuery) ||
+                (t.descripcion && t.descripcion.toLowerCase().includes(this.searchQuery)) ||
+                (t.comandante && t.comandante.toLowerCase().includes(this.searchQuery)) ||
+                (t.batalla && t.batalla.toLowerCase().includes(this.searchQuery))
             );
         }
 
-        return filteredTasks;
+        return filtered;
     }
 
-    /**
-     * Ordena las tareas según el criterio actual
-     */
-    sortTasks(tasks) {
-        const sortedTasks = [...tasks];
+    sortTactics(tactics) {
+        const sorted = [...tactics];
 
         switch (this.currentSort) {
-            case 'date-asc':
-                return sortedTasks.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
-            
             case 'date-desc':
-                return sortedTasks.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-            
-            case 'priority':
-                const priorityOrder = { high: 3, medium: 2, low: 1 };
-                return sortedTasks.sort((a, b) => priorityOrder[b.priority] - priorityOrder[a.priority]);
-            
-            case 'title':
-                return sortedTasks.sort((a, b) => a.title.localeCompare(b.title));
-            
-            case 'due-date':
-                return sortedTasks.sort((a, b) => {
-                    if (!a.dueDate && !b.dueDate) return 0;
-                    if (!a.dueDate) return 1;
-                    if (!b.dueDate) return -1;
-                    return new Date(a.dueDate) - new Date(b.dueDate);
-                });
-            
+                return sorted.sort((a, b) => new Date(b.creadaEn) - new Date(a.creadaEn));
+            case 'importance':
+                return sorted.sort((a, b) => b.importancia - a.importancia);
+            case 'name':
+                return sorted.sort((a, b) => a.nombre.localeCompare(b.nombre));
+            case 'period':
+                const periodOrder = { ANTIGUO: 1, MEDIEVAL: 2, MODERNO: 3, CONTEMPORANEO: 4 };
+                return sorted.sort((a, b) => periodOrder[a.periodo] - periodOrder[b.periodo]);
+            case 'effectiveness':
+                const effOrder = { ALTA: 3, MEDIA: 2, BAJA: 1 };
+                return sorted.sort((a, b) => effOrder[b.efectividad] - effOrder[a.efectividad]);
             default:
-                return sortedTasks;
+                return sorted;
         }
     }
 
-    /**
-     * Renderiza todas las tareas en el DOM
-     */
-    renderTasks() {
-        const filteredTasks = this.getFilteredTasks();
-        const sortedTasks = this.sortTasks(filteredTasks);
+    // Simula: <c:forEach var="tactica" items="${tacticas}">
+    renderTactics() {
+        const filtered = this.getFilteredTactics();
+        const sorted = this.sortTactics(filtered);
 
-        // Mostrar/ocultar estado vacío
-        if (sortedTasks.length === 0) {
-            this.elements.tasksContainer.innerHTML = '';
-            this.elements.emptyState.classList.remove('hidden');
+        if (sorted.length === 0) {
+            this.elements.tacticsContainer.innerHTML = '';
+            this.elements.emptyState?.classList.remove('hidden');
         } else {
-            this.elements.emptyState.classList.add('hidden');
-            this.elements.tasksContainer.innerHTML = sortedTasks.map(task => this.createTaskHTML(task)).join('');
-            
-            // Vincular eventos a los botones de acción
-            this.bindTaskEvents();
+            this.elements.emptyState?.classList.add('hidden');
+            this.elements.tacticsContainer.innerHTML = sorted.map(t => this.createTacticHTML(t)).join('');
         }
     }
 
-    /**
-     * Crea el HTML para una tarea individual
-     */
-    createTaskHTML(task) {
-        const priorityLabels = {
-            high: '🔴 Alta',
-            medium: '🟡 Media',
-            low: '🟢 Baja'
+    // Simula: ${tactica.nombre} - Expression Language
+    createTacticHTML(tactic) {
+        const typeIcons = {
+            OFENSIVA: '⚔️',
+            DEFENSIVA: '🛡️',
+            MANIOBRA: '🔄',
+            ASEDIO: '🏰',
+            GUERRILLA: '🌲',
+            NAVAL: '⚓'
         };
 
-        const formattedDate = new Date(task.createdAt).toLocaleDateString('es-ES', {
-            year: 'numeric',
-            month: 'short',
-            day: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit'
-        });
+        const periodIcons = {
+            ANTIGUO: '🏛️',
+            MEDIEVAL: '⚔️',
+            MODERNO: '🎖️',
+            CONTEMPORANEO: '🚁'
+        };
 
-        let dueDateHTML = '';
-        if (task.dueDate) {
-            const dueDate = new Date(task.dueDate);
-            const today = new Date();
-            const isOverdue = dueDate < today && !task.completed;
-            
-            const formattedDueDate = dueDate.toLocaleDateString('es-ES', {
-                year: 'numeric',
-                month: 'short',
-                day: 'numeric'
-            });
+        const effBadges = {
+            ALTA: '<span class="eff-badge high">✅ Alta Efectividad</span>',
+            MEDIA: '<span class="eff-badge medium">⚠️ Media Efectividad</span>',
+            BAJA: '<span class="eff-badge low">❌ Baja Efectividad</span>'
+        };
 
-            dueDateHTML = `
-                <div class="task-due-date ${isOverdue ? 'overdue' : ''}">
-                    <i class="fas fa-calendar-alt"></i>
-                    ${isOverdue ? 'Vencida: ' : 'Vence: '} ${formattedDueDate}
-                </div>
-            `;
-        }
+        const stars = '⭐'.repeat(tactic.importancia);
 
         return `
-            <div class="task-item priority-${task.priority} ${task.completed ? 'completed' : ''}" data-task-id="${task.id}">
-                <div class="task-header">
-                    <h3 class="task-title">${this.escapeHtml(task.title)}</h3>
-                    <span class="task-priority priority-${task.priority}">
-                        ${priorityLabels[task.priority]}
-                    </span>
-                </div>
-                
-                ${task.description ? `<p class="task-description">${this.escapeHtml(task.description)}</p>` : ''}
-                
-                <div class="task-meta">
-                    <div class="task-date">
-                        <i class="fas fa-clock"></i>
-                        Creada: ${formattedDate}
+            <div class="tactic-card type-${tactic.tipo.toLowerCase()}" data-tactic-id="${tactic.id}">
+                <div class="tactic-header">
+                    <h3 class="tactic-name">
+                        ${typeIcons[tactic.tipo]} ${this.escapeHtml(tactic.nombre)}
+                    </h3>
+                    <div class="tactic-importance" title="Importancia Estratégica">
+                        ${stars}
                     </div>
-                    ${dueDateHTML}
                 </div>
                 
-                <div class="task-actions">
-                    <button class="task-action-btn complete-btn" onclick="taskManager.toggleTaskCompletion('${task.id}')" title="${task.completed ? 'Marcar como pendiente' : 'Marcar como completada'}">
-                        <i class="fas fa-${task.completed ? 'undo' : 'check'}"></i>
+                ${tactic.descripcion ? `<p class="tactic-description">${this.escapeHtml(tactic.descripcion)}</p>` : ''}
+                
+                <div class="tactic-meta">
+                    <div class="meta-item">
+                        <strong>Tipo:</strong> ${typeIcons[tactic.tipo]} ${tactic.tipo}
+                    </div>
+                    <div class="meta-item">
+                        <strong>Periodo:</strong> ${periodIcons[tactic.periodo]} ${tactic.periodo}
+                    </div>
+                    <div class="meta-item">
+                        ${effBadges[tactic.efectividad]}
+                    </div>
+                </div>
+                
+                ${tactic.comandante || tactic.batalla ? `
+                    <div class="tactic-historical">
+                        ${tactic.comandante ? `<div><strong>Comandante:</strong> ${this.escapeHtml(tactic.comandante)}</div>` : ''}
+                        ${tactic.batalla ? `<div><strong>Batalla Notable:</strong> ${this.escapeHtml(tactic.batalla)}</div>` : ''}
+                    </div>
+                ` : ''}
+                
+                <div class="tactic-actions">
+                    <button class="tactic-btn edit" onclick="tacticalManager.openEditModal('${tactic.id}')" title="Editar">
+                        <i class="fas fa-edit"></i> Editar
                     </button>
-                    <button class="task-action-btn edit-btn" onclick="taskManager.openEditModal('${task.id}')" title="Editar tarea">
-                        <i class="fas fa-edit"></i>
-                    </button>
-                    <button class="task-action-btn delete-btn" onclick="taskManager.openDeleteModal('${task.id}')" title="Eliminar tarea">
-                        <i class="fas fa-trash"></i>
+                    <button class="tactic-btn delete" onclick="tacticalManager.openDeleteModal('${tactic.id}')" title="Eliminar">
+                        <i class="fas fa-trash-alt"></i> Eliminar
                     </button>
                 </div>
             </div>
         `;
     }
 
-    /**
-     * Vincula eventos a los elementos de las tareas
-     */
-    bindTaskEvents() {
-        // Los eventos se manejan mediante onclick en el HTML para simplicidad
-        // En una aplicación más compleja, se usaría event delegation
+    openEditModal(tacticId) {
+        const tactic = this.tactics.find(t => t.id === tacticId);
+        if (!tactic) return;
+
+        this.editingTacticId = tacticId;
+        
+        this.elements.editName.value = tactic.nombre;
+        this.elements.editDescription.value = tactic.descripcion || '';
+        this.elements.editType.value = tactic.tipo;
+        this.elements.editImportance.value = tactic.importancia;
+        this.elements.editPeriod.value = tactic.periodo;
+        this.elements.editEffectiveness.value = tactic.efectividad;
+        this.elements.editCommander.value = tactic.comandante || '';
+        this.elements.editBattle.value = tactic.batalla || '';
+        
+        this.elements.editModal?.classList.add('show');
     }
 
-    /**
-     * Actualiza las estadísticas mostradas en el header
-     */
+    closeEditModal() {
+        this.elements.editModal?.classList.remove('show');
+        this.editingTacticId = null;
+        this.elements.editForm?.reset();
+    }
+
+    handleEditTactic(e) {
+        e.preventDefault();
+        
+        const tactic = this.tactics.find(t => t.id === this.editingTacticId);
+        if (!tactic) return;
+
+        tactic.nombre = this.elements.editName.value.trim();
+        tactic.descripcion = this.elements.editDescription.value.trim();
+        tactic.tipo = this.elements.editType.value;
+        tactic.importancia = parseInt(this.elements.editImportance.value);
+        tactic.periodo = this.elements.editPeriod.value;
+        tactic.efectividad = this.elements.editEffectiveness.value;
+        tactic.comandante = this.elements.editCommander.value.trim();
+        tactic.batalla = this.elements.editBattle.value.trim();
+
+        this.saveTacticsToStorage();
+        this.renderTactics();
+        this.closeEditModal();
+        
+        this.showNotification('Táctica Actualizada', `"${tactic.nombre}" modificada exitosamente.`, 'success');
+    }
+
+    openDeleteModal(tacticId) {
+        this.deletingTacticId = tacticId;
+        this.elements.deleteModal?.classList.add('show');
+    }
+
+    closeDeleteModal() {
+        this.elements.deleteModal?.classList.remove('show');
+        this.deletingTacticId = null;
+    }
+
+    handleDeleteTactic() {
+        const index = this.tactics.findIndex(t => t.id === this.deletingTacticId);
+        if (index === -1) return;
+
+        const tactic = this.tactics[index];
+        this.tactics.splice(index, 1);
+        
+        this.saveTacticsToStorage();
+        this.renderTactics();
+        this.updateStats();
+        this.closeDeleteModal();
+        
+        this.showNotification('Táctica Eliminada', `"${tactic.nombre}" removida del catálogo.`, 'warning');
+    }
+
     updateStats() {
-        const totalTasks = this.tasks.length;
-        const completedTasks = this.tasks.filter(task => task.completed).length;
+        const total = this.tactics.length;
+        const highImportance = this.tactics.filter(t => t.importancia >= 4).length;
 
-        this.elements.totalTasks.textContent = totalTasks;
-        this.elements.completedTasks.textContent = completedTasks;
+        if (this.elements.totalTactics) this.elements.totalTactics.textContent = total;
+        if (this.elements.highImportanceTactics) this.elements.highImportanceTactics.textContent = highImportance;
     }
 
-    /**
-     * Guarda las tareas en localStorage
-     */
-    saveTasksToStorage() {
+    // Simula: JPA EntityManager.persist()
+    saveTacticsToStorage() {
         try {
-            localStorage.setItem('taskmanager_tasks', JSON.stringify(this.tasks));
+            localStorage.setItem('tactical_warfare_data', JSON.stringify(this.tactics));
         } catch (error) {
-            console.error('Error al guardar tareas:', error);
-            this.showNotification('Error', 'No se pudieron guardar las tareas.', 'error');
+            console.error('Error al guardar:', error);
+            this.showNotification('Error de Persistencia', 'No se pudo guardar en la base de datos.', 'error');
         }
     }
 
-    /**
-     * Carga las tareas desde localStorage
-     */
-    loadTasksFromStorage() {
+    // Simula: JPA EntityManager.find()
+    loadTacticsFromStorage() {
         try {
-            const saved = localStorage.getItem('taskmanager_tasks');
+            const saved = localStorage.getItem('tactical_warfare_data');
             if (saved) {
-                this.tasks = JSON.parse(saved);
+                this.tactics = JSON.parse(saved);
             }
         } catch (error) {
-            console.error('Error al cargar tareas:', error);
-            this.tasks = [];
-            this.showNotification('Error', 'No se pudieron cargar las tareas guardadas.', 'error');
+            console.error('Error al cargar:', error);
+            this.tactics = [];
         }
     }
 
-    /**
-     * Muestra una notificación al usuario
-     */
     showNotification(title, message, type = 'info', duration = 5000) {
-        const iconMap = {
+        const icons = {
             success: 'fas fa-check-circle',
             error: 'fas fa-exclamation-circle',
             warning: 'fas fa-exclamation-triangle',
@@ -568,7 +446,7 @@ class TaskManager {
         notification.className = `notification ${type}`;
         notification.innerHTML = `
             <div class="notification-icon">
-                <i class="${iconMap[type]}"></i>
+                <i class="${icons[type]}"></i>
             </div>
             <div class="notification-content">
                 <div class="notification-title">${this.escapeHtml(title)}</div>
@@ -576,145 +454,99 @@ class TaskManager {
             </div>
         `;
 
-        this.elements.notificationsContainer.appendChild(notification);
+        this.elements.notificationsContainer?.appendChild(notification);
 
-        // Auto-remover la notificación
         setTimeout(() => {
-            if (notification.parentNode) {
-                notification.style.animation = 'slideInFromRight 0.3s ease reverse';
-                setTimeout(() => {
-                    if (notification.parentNode) {
-                        notification.remove();
-                    }
-                }, 300);
-            }
+            notification.style.animation = 'slideInFromRight 0.3s ease reverse';
+            setTimeout(() => notification.remove(), 300);
         }, duration);
-
-        return notification;
     }
 
-    /**
-     * Escapa HTML para prevenir XSS
-     */
     escapeHtml(text) {
-        const map = {
-            '&': '&amp;',
-            '<': '&lt;',
-            '>': '&gt;',
-            '"': '&quot;',
-            "'": '&#039;'
-        };
-        return text.replace(/[&<>"']/g, m => map[m]);
+        const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
+        return String(text).replace(/[&<>"']/g, m => map[m]);
     }
 
-    /**
-     * Exporta las tareas a JSON
-     */
-    exportTasks() {
-        const dataStr = JSON.stringify(this.tasks, null, 2);
-        const dataBlob = new Blob([dataStr], { type: 'application/json' });
-        
-        const link = document.createElement('a');
-        link.href = URL.createObjectURL(dataBlob);
-        link.download = `taskmanager_backup_${new Date().toISOString().split('T')[0]}.json`;
-        link.click();
-        
-        this.showNotification('Exportación exitosa', 'Las tareas han sido exportadas correctamente.', 'success');
-    }
-
-    /**
-     * Importa tareas desde un archivo JSON
-     */
-    importTasks(file) {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            try {
-                const importedTasks = JSON.parse(e.target.result);
-                
-                if (Array.isArray(importedTasks)) {
-                    this.tasks = [...this.tasks, ...importedTasks];
-                    this.saveTasksToStorage();
-                    this.renderTasks();
-                    this.updateStats();
-                    
-                    this.showNotification('Importación exitosa', `${importedTasks.length} tareas han sido importadas.`, 'success');
-                } else {
-                    throw new Error('Formato de archivo inválido');
+    // Datos de ejemplo
+    loadSampleData() {
+        if (this.tactics.length === 0) {
+            this.tactics = [
+                {
+                    id: this.generateId(),
+                    nombre: "Falange Macedonia",
+                    descripcion: "Formación de infantería pesada en bloque compacto con lanzas largas (sarisas). Revolucionó la guerra antigua.",
+                    tipo: "OFENSIVA",
+                    importancia: 5,
+                    periodo: "ANTIGUO",
+                    efectividad: "ALTA",
+                    comandante: "Alejandro Magno",
+                    batalla: "Batalla de Gaugamela (331 a.C.)",
+                    creadaEn: new Date('2024-01-15').toISOString()
+                },
+                {
+                    id: this.generateId(),
+                    nombre: "Blitzkrieg",
+                    descripcion: "Guerra relámpago basada en rápidos movimientos de tanques y aviación para romper líneas enemigas.",
+                    tipo: "OFENSIVA",
+                    importancia: 5,
+                    periodo: "MODERNO",
+                    efectividad: "ALTA",
+                    comandante: "Heinz Guderian",
+                    batalla: "Invasión de Francia (1940)",
+                    creadaEn: new Date('2024-02-10').toISOString()
+                },
+                {
+                    id: this.generateId(),
+                    nombre: "Guerrilla",
+                    descripcion: "Táctica de guerra irregular con ataques sorpresa, emboscadas y retiradas rápidas contra fuerzas superiores.",
+                    tipo: "GUERRILLA",
+                    importancia: 4,
+                    periodo: "CONTEMPORANEO",
+                    efectividad: "ALTA",
+                    comandante: "Che Guevara",
+                    batalla: "Revolución Cubana (1953-1959)",
+                    creadaEn: new Date('2024-03-05').toISOString()
+                },
+                {
+                    id: this.generateId(),
+                    nombre: "Tortuga Romana",
+                    descripcion: "Formación defensiva donde los soldados crean una muralla de escudos cubriendo todos los lados.",
+                    tipo: "DEFENSIVA",
+                    importancia: 3,
+                    periodo: "ANTIGUO",
+                    efectividad: "ALTA",
+                    comandante: "Legiones Romanas",
+                    batalla: "Asedios diversos",
+                    creadaEn: new Date('2024-04-01').toISOString()
+                },
+                {
+                    id: this.generateId(),
+                    nombre: "Pinza de Aníbal",
+                    descripcion: "Maniobra envolvente que rodea al enemigo por ambos flancos simultáneamente, destruyendo su formación.",
+                    tipo: "MANIOBRA",
+                    importancia: 5,
+                    periodo: "ANTIGUO",
+                    efectividad: "ALTA",
+                    comandante: "Aníbal Barca",
+                    batalla: "Batalla de Cannae (216 a.C.)",
+                    creadaEn: new Date('2024-05-12').toISOString()
                 }
-            } catch (error) {
-                console.error('Error al importar tareas:', error);
-                this.showNotification('Error de importación', 'El archivo no tiene un formato válido.', 'error');
-            }
-        };
-        
-        reader.readAsText(file);
-    }
-
-    /**
-     * Limpia todas las tareas completadas
-     */
-    clearCompletedTasks() {
-        const completedCount = this.tasks.filter(task => task.completed).length;
-        
-        if (completedCount === 0) {
-            this.showNotification('Sin tareas completadas', 'No hay tareas completadas para eliminar.', 'info');
-            return;
+            ];
+            this.saveTacticsToStorage();
         }
-
-        if (confirm(`¿Estás seguro de que quieres eliminar las ${completedCount} tareas completadas?`)) {
-            this.tasks = this.tasks.filter(task => !task.completed);
-            this.saveTasksToStorage();
-            this.renderTasks();
-            this.updateStats();
-            
-            this.showNotification('Tareas eliminadas', `${completedCount} tareas completadas han sido eliminadas.`, 'success');
-        }
-    }
-
-    /**
-     * Obtiene estadísticas detalladas
-     */
-    getDetailedStats() {
-        const total = this.tasks.length;
-        const completed = this.tasks.filter(t => t.completed).length;
-        const pending = total - completed;
-        
-        const byPriority = {
-            high: this.tasks.filter(t => t.priority === 'high' && !t.completed).length,
-            medium: this.tasks.filter(t => t.priority === 'medium' && !t.completed).length,
-            low: this.tasks.filter(t => t.priority === 'low' && !t.completed).length
-        };
-
-        const overdue = this.tasks.filter(t => {
-            if (!t.dueDate || t.completed) return false;
-            return new Date(t.dueDate) < new Date();
-        }).length;
-
-        return {
-            total,
-            completed,
-            pending,
-            byPriority,
-            overdue,
-            completionRate: total > 0 ? ((completed / total) * 100).toFixed(1) : 0
-        };
     }
 }
 
 // Inicializar la aplicación cuando el DOM esté listo
-document.addEventListener('DOMContentLoaded', () => {
-    window.taskManager = new TaskManager();
-});
+// Simula: ServletContextListener.contextInitialized()
+let tacticalManager;
 
-// Funciones adicionales para la consola del desarrollador
-window.taskManagerUtils = {
-    exportTasks: () => window.taskManager.exportTasks(),
-    clearCompleted: () => window.taskManager.clearCompletedTasks(),
-    getStats: () => window.taskManager.getDetailedStats(),
-    reset: () => {
-        if (confirm('¿Estás seguro de que quieres eliminar TODAS las tareas?')) {
-            localStorage.removeItem('taskmanager_tasks');
-            location.reload();
-        }
-    }
-};
+document.addEventListener('DOMContentLoaded', () => {
+    tacticalManager = new TacticalWarfareManager();
+    
+    // Exponer globalmente para onclick handlers
+    window.tacticalManager = tacticalManager;
+    
+    console.log('%c⚔️ Tactical Warfare System Initialized', 'color: #10b981; font-size: 16px; font-weight: bold;');
+    console.log('%cSimulación de arquitectura JSP/Servlet activada', 'color: #6366f1;');
+});

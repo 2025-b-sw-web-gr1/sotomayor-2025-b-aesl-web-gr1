@@ -3,172 +3,291 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TaskManager SPA - Gestor de Tareas Personales</title>
+    <title>Tactical Warfare System - Sistema de Tácticas Militares</title>
     <link rel="stylesheet" href="css/styles.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Simulación de directivas JSP -->
+    <!-- <%@ page contentType="text/html;charset=UTF-8" language="java" %> -->
+    <!-- <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> -->
+    <!-- <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> -->
 </head>
 <body>
     <!-- Header de la aplicación -->
     <header class="app-header">
         <div class="container">
             <h1 class="app-title">
-                <i class="fas fa-tasks"></i>
-                TaskManager SPA
+                <i class="fas fa-chess-knight"></i>
+                Tactical Warfare System
             </h1>
             <div class="header-stats">
                 <span class="stat-item">
-                    <i class="fas fa-list"></i>
-                    Total: <span id="total-tasks">0</span>
+                    <i class="fas fa-book-open"></i>
+                    Total: <span id="total-tactics">0</span>
                 </span>
                 <span class="stat-item">
-                    <i class="fas fa-check-circle"></i>
-                    Completadas: <span id="completed-tasks">0</span>
+                    <i class="fas fa-star"></i>
+                    Alta Importancia: <span id="high-importance-tactics">0</span>
                 </span>
             </div>
         </div>
     </header>
 
-    <!-- Contenedor principal de la SPA -->
+    <!-- Contenedor principal simulando JSP -->
     <main class="app-main">
         <div class="container">
             <!-- Panel de control -->
+            <!-- Simulación: <jsp:include page="tactical-form.jsp" /> -->
             <section class="control-panel">
                 <div class="panel-section">
-                    <h2>Agregar Nueva Tarea</h2>
-                    <form id="task-form" class="task-form">
+                    <h2>Registrar Nueva Táctica Militar</h2>
+                    <form id="tactical-form" class="tactical-form">
                         <div class="form-group">
-                            <label for="task-title">Título de la tarea:</label>
-                            <input type="text" id="task-title" placeholder="Escribe el título de tu tarea..." required>
+                            <label for="tactic-name">Nombre de la Táctica:</label>
+                            <input type="text" id="tactic-name" 
+                                   placeholder="Ej: Falange Macedonia, Blitzkrieg, Guerrilla..." 
+                                   required>
                         </div>
                         
                         <div class="form-group">
-                            <label for="task-description">Descripción:</label>
-                            <textarea id="task-description" placeholder="Describe tu tarea (opcional)..." rows="3"></textarea>
+                            <label for="tactic-description">Descripción Táctica:</label>
+                            <textarea id="tactic-description" 
+                                      placeholder="Describe la táctica militar, su propósito y características..." 
+                                      rows="3"></textarea>
                         </div>
                         
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="task-priority">Nivel de Importancia:</label>
-                                <select id="task-priority" required>
-                                    <option value="">Seleccionar...</option>
-                                    <option value="high">🔴 Alta</option>
-                                    <option value="medium">🟡 Media</option>
-                                    <option value="low">🟢 Baja</option>
+                                <label for="tactic-type">Tipo Táctico:</label>
+                                <select id="tactic-type" required>
+                                    <option value="">Seleccionar tipo...</option>
+                                    <option value="OFENSIVA">⚔️ Ofensiva</option>
+                                    <option value="DEFENSIVA">🛡️ Defensiva</option>
+                                    <option value="MANIOBRA">🔄 Maniobra</option>
+                                    <option value="ASEDIO">🏰 Asedio</option>
+                                    <option value="GUERRILLA">🌲 Guerrilla</option>
+                                    <option value="NAVAL">⚓ Naval</option>
                                 </select>
                             </div>
                             
                             <div class="form-group">
-                                <label for="task-due-date">Fecha límite:</label>
-                                <input type="date" id="task-due-date">
+                                <label for="tactic-importance">Importancia Estratégica:</label>
+                                <select id="tactic-importance" required>
+                                    <option value="">Nivel...</option>
+                                    <option value="5">⭐⭐⭐⭐⭐ Crítica</option>
+                                    <option value="4">⭐⭐⭐⭐ Muy Alta</option>
+                                    <option value="3">⭐⭐⭐ Alta</option>
+                                    <option value="2">⭐⭐ Media</option>
+                                    <option value="1">⭐ Baja</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="tactic-period">Periodo Histórico:</label>
+                                <select id="tactic-period" required>
+                                    <option value="">Seleccionar periodo...</option>
+                                    <option value="ANTIGUO">🏛️ Antiguo (3000 a.C. - 476 d.C.)</option>
+                                    <option value="MEDIEVAL">⚔️ Medieval (476 - 1492)</option>
+                                    <option value="MODERNO">🎖️ Moderno (1492 - 1945)</option>
+                                    <option value="CONTEMPORANEO">🚁 Contemporáneo (1945 - Presente)</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="tactic-effectiveness">Efectividad Histórica:</label>
+                                <select id="tactic-effectiveness" required>
+                                    <option value="">Evaluar efectividad...</option>
+                                    <option value="ALTA">✅ Alta</option>
+                                    <option value="MEDIA">⚠️ Media</option>
+                                    <option value="BAJA">❌ Baja</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="tactic-commander">Comandante/Estratega:</label>
+                                <input type="text" id="tactic-commander" 
+                                       placeholder="Ej: Alejandro Magno, Sun Tzu, Napoleón...">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="tactic-battle">Batalla Famosa:</label>
+                                <input type="text" id="tactic-battle" 
+                                       placeholder="Ej: Batalla de Gaugamela, Stalingrado...">
                             </div>
                         </div>
                         
                         <button type="submit" class="btn btn-primary">
-                            <i class="fas fa-plus"></i> Agregar Tarea
+                            <i class="fas fa-plus-circle"></i> Registrar Táctica
                         </button>
                     </form>
                 </div>
 
                 <!-- Filtros y búsqueda -->
+                <!-- Simulación: <%-- Filtros de búsqueda --%> -->
                 <div class="panel-section">
-                    <h3>Filtros y Búsqueda</h3>
+                    <h3>Filtros y Búsqueda Táctica</h3>
                     <div class="filters-container">
                         <div class="search-group">
-                            <input type="text" id="search-input" placeholder="Buscar tareas...">
+                            <input type="text" id="search-input" 
+                                   placeholder="Buscar tácticas, comandantes, batallas...">
                             <i class="fas fa-search"></i>
                         </div>
                         
                         <div class="filter-buttons">
                             <button class="filter-btn active" data-filter="all">
-                                <i class="fas fa-list"></i> Todas
+                                <i class="fas fa-globe"></i> Todas
                             </button>
-                            <button class="filter-btn" data-filter="pending">
-                                <i class="fas fa-clock"></i> Pendientes
+                            <button class="filter-btn" data-filter="OFENSIVA">
+                                <i class="fas fa-sword"></i> Ofensivas
                             </button>
-                            <button class="filter-btn" data-filter="completed">
-                                <i class="fas fa-check"></i> Completadas
+                            <button class="filter-btn" data-filter="DEFENSIVA">
+                                <i class="fas fa-shield-alt"></i> Defensivas
+                            </button>
+                            <button class="filter-btn" data-filter="MANIOBRA">
+                                <i class="fas fa-exchange-alt"></i> Maniobras
                             </button>
                         </div>
                         
-                        <div class="priority-filters">
-                            <button class="priority-filter" data-priority="high">🔴 Alta</button>
-                            <button class="priority-filter" data-priority="medium">🟡 Media</button>
-                            <button class="priority-filter" data-priority="low">🟢 Baja</button>
+                        <div class="period-filters">
+                            <button class="period-filter" data-period="ANTIGUO">
+                                🏛️ Antiguo
+                            </button>
+                            <button class="period-filter" data-period="MEDIEVAL">
+                                ⚔️ Medieval
+                            </button>
+                            <button class="period-filter" data-period="MODERNO">
+                                🎖️ Moderno
+                            </button>
+                            <button class="period-filter" data-period="CONTEMPORANEO">
+                                🚁 Contemporáneo
+                            </button>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- Lista de tareas -->
-            <section class="tasks-section">
+            <!-- Lista de tácticas -->
+            <!-- Simulación JSP: <c:forEach var="tactica" items="${tacticas}"> -->
+            <section class="tactics-section">
                 <div class="section-header">
-                    <h2>Mis Tareas</h2>
+                    <h2>Catálogo de Tácticas Militares</h2>
                     <div class="sort-controls">
                         <label for="sort-select">Ordenar por:</label>
                         <select id="sort-select">
-                            <option value="date-desc">Fecha (más reciente)</option>
-                            <option value="date-asc">Fecha (más antigua)</option>
-                            <option value="priority">Prioridad</option>
-                            <option value="title">Título</option>
-                            <option value="due-date">Fecha límite</option>
+                            <option value="date-desc">Fecha de registro (reciente)</option>
+                            <option value="importance">Importancia estratégica</option>
+                            <option value="name">Nombre</option>
+                            <option value="period">Periodo histórico</option>
+                            <option value="effectiveness">Efectividad</option>
                         </select>
                     </div>
                 </div>
                 
-                <!-- Contenedor de las tareas -->
-                <div id="tasks-container" class="tasks-container">
-                    <!-- Las tareas se insertarán dinámicamente aquí -->
+                <!-- Contenedor de las tácticas -->
+                <!-- Simulación: ${tactica.nombre} - Expression Language -->
+                <div id="tactics-container" class="tactics-container">
+                    <!-- Las tácticas se insertarán dinámicamente aquí -->
+                    <!-- Equivalente a: request.setAttribute("tacticas", tacticasList) -->
                 </div>
                 
-                <!-- Mensaje cuando no hay tareas -->
+                <!-- Mensaje cuando no hay tácticas -->
+                <!-- Simulación: <c:if test="${empty tacticas}"> -->
                 <div id="empty-state" class="empty-state">
-                    <i class="fas fa-clipboard-list"></i>
-                    <h3>No hay tareas todavía</h3>
-                    <p>¡Comienza agregando tu primera tarea!</p>
+                    <i class="fas fa-book-dead"></i>
+                    <h3>No hay tácticas registradas</h3>
+                    <p>¡Comienza agregando la primera táctica militar al catálogo!</p>
                 </div>
+                <!-- </c:if> -->
             </section>
         </div>
     </main>
 
-    <!-- Modal para editar tareas -->
+    <!-- Modal para editar tácticas -->
+    <!-- Simulación: <jsp:include page="edit-modal.jsp" /> -->
     <div id="edit-modal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3>Editar Tarea</h3>
+                <h3>Editar Táctica Militar</h3>
                 <button class="close-modal" id="close-edit-modal">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
-            <form id="edit-task-form">
+            <form id="edit-tactical-form">
                 <div class="form-group">
-                    <label for="edit-task-title">Título:</label>
-                    <input type="text" id="edit-task-title" required>
+                    <label for="edit-tactic-name">Nombre:</label>
+                    <input type="text" id="edit-tactic-name" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="edit-task-description">Descripción:</label>
-                    <textarea id="edit-task-description" rows="3"></textarea>
+                    <label for="edit-tactic-description">Descripción:</label>
+                    <textarea id="edit-tactic-description" rows="3"></textarea>
                 </div>
                 
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="edit-task-priority">Prioridad:</label>
-                        <select id="edit-task-priority" required>
-                            <option value="high">🔴 Alta</option>
-                            <option value="medium">🟡 Media</option>
-                            <option value="low">🟢 Baja</option>
+                        <label for="edit-tactic-type">Tipo:</label>
+                        <select id="edit-tactic-type" required>
+                            <option value="OFENSIVA">⚔️ Ofensiva</option>
+                            <option value="DEFENSIVA">🛡️ Defensiva</option>
+                            <option value="MANIOBRA">🔄 Maniobra</option>
+                            <option value="ASEDIO">🏰 Asedio</option>
+                            <option value="GUERRILLA">🌲 Guerrilla</option>
+                            <option value="NAVAL">⚓ Naval</option>
                         </select>
                     </div>
                     
                     <div class="form-group">
-                        <label for="edit-task-due-date">Fecha límite:</label>
-                        <input type="date" id="edit-task-due-date">
+                        <label for="edit-tactic-importance">Importancia:</label>
+                        <select id="edit-tactic-importance" required>
+                            <option value="5">⭐⭐⭐⭐⭐ Crítica</option>
+                            <option value="4">⭐⭐⭐⭐ Muy Alta</option>
+                            <option value="3">⭐⭐⭐ Alta</option>
+                            <option value="2">⭐⭐ Media</option>
+                            <option value="1">⭐ Baja</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="edit-tactic-period">Periodo:</label>
+                        <select id="edit-tactic-period" required>
+                            <option value="ANTIGUO">🏛️ Antiguo</option>
+                            <option value="MEDIEVAL">⚔️ Medieval</option>
+                            <option value="MODERNO">🎖️ Moderno</option>
+                            <option value="CONTEMPORANEO">🚁 Contemporáneo</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="edit-tactic-effectiveness">Efectividad:</label>
+                        <select id="edit-tactic-effectiveness" required>
+                            <option value="ALTA">✅ Alta</option>
+                            <option value="MEDIA">⚠️ Media</option>
+                            <option value="BAJA">❌ Baja</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="edit-tactic-commander">Comandante:</label>
+                        <input type="text" id="edit-tactic-commander">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="edit-tactic-battle">Batalla Famosa:</label>
+                        <input type="text" id="edit-tactic-battle">
                     </div>
                 </div>
                 
                 <div class="modal-actions">
                     <button type="button" class="btn btn-secondary" id="cancel-edit">Cancelar</button>
-                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                    <button type="submit" class="btn btn-primary">Actualizar Táctica</button>
                 </div>
             </form>
         </div>
@@ -184,7 +303,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p>¿Estás seguro de que quieres eliminar esta tarea?</p>
+                <p>¿Estás seguro de que quieres eliminar esta táctica militar?</p>
                 <p class="warning-text">Esta acción no se puede deshacer.</p>
             </div>
             <div class="modal-actions">
@@ -200,6 +319,20 @@
     </div>
 
     <!-- Scripts -->
+    <!-- Simulación: <script src="${pageContext.request.contextPath}/js/app.js"></script> -->
     <script src="js/app.js"></script>
+    
+    <!-- Comentario JSP de ejemplo -->
+    <!--
+        Simulación de controlador Servlet:
+        @WebServlet("/tactical/list")
+        public class TacticalListServlet extends HttpServlet {
+            protected void doGet(HttpServletRequest req, HttpServletResponse res) {
+                List<Tactica> tacticas = tacticalService.findAll();
+                req.setAttribute("tacticas", tacticas);
+                req.getRequestDispatcher("/WEB-INF/views/tactical.jsp").forward(req, res);
+            }
+        }
+    -->
 </body>
 </html>
