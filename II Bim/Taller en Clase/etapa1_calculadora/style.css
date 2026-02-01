@@ -1,0 +1,170 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f2f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.container {
+    text-align: center;
+}
+
+h1 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.calculator {
+    background-color: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    width: 320px; /* Slightly wider */
+    margin: 0 auto;
+}
+
+.display {
+    background-color: #222;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    padding: 10px;
+    text-align: right;
+}
+
+.sub-display {
+    color: #888;
+    font-size: 14px;
+    min-height: 20px;
+}
+
+.display input {
+    width: 100%;
+    padding: 10px 5px;
+    font-size: 32px;
+    text-align: right;
+    border: none;
+    background-color: transparent;
+    color: white;
+    box-sizing: border-box;
+    font-family: 'Consolas', monospace;
+}
+
+.display input::placeholder {
+    color: #555;
+}
+
+.buttons.grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+}
+
+.btn {
+    padding: 15px;
+    font-size: 20px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.1s;
+    user-select: none;
+    box-shadow: 0 2px 0 rgba(0,0,0,0.1);
+}
+
+.btn:active {
+    transform: translateY(2px);
+    box-shadow: none;
+}
+
+.btn.number {
+    background-color: #f8f9fa;
+    color: #333;
+    font-weight: bold;
+}
+
+.btn.number:hover {
+    background-color: #e9ecef;
+}
+
+.btn.operator {
+    background-color: #007bff;
+    color: white;
+}
+
+.btn.operator:hover {
+    background-color: #0069d9;
+}
+
+.btn.alt {
+    background-color: #6c757d;
+    color: white;
+}
+
+.btn.alt:hover {
+    background-color: #5a6268;
+}
+
+.btn.clear {
+    background-color: #dc3545;
+    color: white;
+    font-weight: bold;
+}
+
+.btn.clear:hover {
+    background-color: #c82333;
+}
+
+.btn.equal {
+    background-color: #28a745;
+    color: white;
+}
+
+.btn.equal:hover {
+    background-color: #218838;
+}
+
+.btn.span-2 {
+    grid-column: span 2;
+}
+
+.message {
+    margin-top: 15px;
+    font-size: 14px;
+    min-height: 20px;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.error {
+    color: #dc3545;
+    background-color: #fcedee;
+}
+
+.success {
+    color: #28a745;
+    background-color: #eafbf0;
+}
+
+.navigation-area {
+    margin-top: 30px;
+}
+
+.nav-button {
+    display: inline-block;
+    padding: 12px 25px;
+    background-color: #2c3e50;
+    color: white;
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.nav-button:hover {
+    background-color: #1a252f;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0,0,0,0.15);
+}

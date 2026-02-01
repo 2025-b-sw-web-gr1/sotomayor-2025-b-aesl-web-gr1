@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análisis de Datos - Etapa 2</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <nav style="text-align: center; padding: 15px; background-color: #ffffff; border-bottom: 1px solid #ddd; margin-bottom: 20px;">
+        <a href="../etapa1_calculadora/index.html" style="text-decoration: none; color: #007bff; font-weight: bold; font-size: 1.1em;">⬅️ Ir a Etapa 1: Calculadora</a>
+    </nav>
+    <div class="container">
+        <header>
+            <h1>Dashboard de Notas y Análisis</h1>
+        </header>
+
+        <section class="stats-cards">
+            <div class="card">
+                <h3>Media Total</h3>
+                <p id="media">0</p>
+            </div>
+            <div class="card">
+                <h3>Mediana Total</h3>
+                <p id="mediana">0</p>
+            </div>
+            <div class="card">
+                <h3>Moda Total</h3>
+                <p id="moda">0</p>
+            </div>
+        </section>
+
+        <section class="extremes-section">
+            <h2>Notas Extremas</h2>
+            <div class="extremes-grid">
+                <div class="extreme-item">
+                    <span>Máx Bimestre 1:</span>
+                    <strong id="maxBim1">0</strong>
+                </div>
+                <div class="extreme-item">
+                    <span>Mín Bimestre 1:</span>
+                    <strong id="minBim1">0</strong>
+                </div>
+                <div class="extreme-item">
+                    <span>Máx Bimestre 2:</span>
+                    <strong id="maxBim2">0</strong>
+                </div>
+                <div class="extreme-item">
+                    <span>Mín Bimestre 2:</span>
+                    <strong id="minBim2">0</strong>
+                </div>
+                <div class="extreme-item">
+                    <span>Máx Total:</span>
+                    <strong id="maxTotal">0</strong>
+                </div>
+                <div class="extreme-item">
+                    <span>Mín Total:</span>
+                    <strong id="minTotal">0</strong>
+                </div>
+            </div>
+        </section>
+
+        <div class="main-content">
+            <section class="table-section">
+                <h2>Lista de Estudiantes</h2>
+                <div class="table-responsive">
+                    <table id="studentsTable">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Nota 1</th>
+                                <th>Nota 2</th>
+                                <th>Promedio</th>
+                                <th>% Total</th>
+                                <th>Comentario</th>
+                                <th>Sentimiento</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Rows will be populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            
+            <section class="chart-section">
+                <h2>Análisis de Sentimientos</h2>
+                <div class="chart-container">
+                    <canvas id="sentimentChart"></canvas>
+                </div>
+                <div id="sentimentLegend" class="legend"></div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Removed data.js since we are loading data.csv via fetch -->
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "append_styles",
+			"type": "shell",
+			"command": "echo",
+			"args": [
+				"-a",
+				"c:\\Users\\alexi\\OneDrive\\Documents\\VII Semestre\\Aplicaciones Web\\II Bimestre\\Taller\\etapa1_calculadora\\style.css"
+			],
+			"isBackground": false,
+			"group": "none"
+		}
+	]
+}

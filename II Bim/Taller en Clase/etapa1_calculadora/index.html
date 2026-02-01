@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Interactiva - Etapa 1</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Calculadora Taller Web</h1>
+        <div class="calculator">
+            <div class="display">
+                <input type="text" id="display" readonly placeholder="0">
+                <div id="sub-display" class="sub-display"></div>
+            </div>
+            
+            <div class="buttons grid-container">
+                <!-- Row 1 -->
+                <button onclick="clearDisplay()" class="btn clear">C</button>
+                <button onclick="deleteLast()" class="btn alt">⌫</button>
+                <button onclick="calculateSqrt()" class="btn alt">√</button>
+                <button onclick="setOperation('divide')" class="btn operator">÷</button>
+                
+                <!-- Row 2 -->
+                <button onclick="appendNumber('7')" class="btn number">7</button>
+                <button onclick="appendNumber('8')" class="btn number">8</button>
+                <button onclick="appendNumber('9')" class="btn number">9</button>
+                <button onclick="setOperation('multiply')" class="btn operator">×</button>
+
+                <!-- Row 3 -->
+                <button onclick="appendNumber('4')" class="btn number">4</button>
+                <button onclick="appendNumber('5')" class="btn number">5</button>
+                <button onclick="appendNumber('6')" class="btn number">6</button>
+                <button onclick="setOperation('subtract')" class="btn operator">-</button>
+
+                <!-- Row 4 -->
+                <button onclick="appendNumber('1')" class="btn number">1</button>
+                <button onclick="appendNumber('2')" class="btn number">2</button>
+                <button onclick="appendNumber('3')" class="btn number">3</button>
+                <button onclick="setOperation('add')" class="btn operator">+</button>
+
+                <!-- Row 5 -->
+                <button onclick="appendNumber('0')" class="btn number span-2">0</button>
+                <button onclick="appendNumber('.')" class="btn number">.</button>
+                <button onclick="calculateResult()" class="btn equal">=</button>
+            </div>
+            <div id="message" class="message"></div>
+        </div>
+        
+        <div class="navigation-area">
+            <a href="../etapa2_analisis/index.html" class="nav-button">Ir a Etapa 2: Análisis de Datos ➡️</a>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
